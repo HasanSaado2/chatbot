@@ -241,12 +241,13 @@ function fetchChats() {
   $.getJSON(`https://chatbottesting.cts.ae/api/api/ChatBot/ChatList/${studentId}`, (data) => {
     data.map((chat) => {
       var div = document.createElement('div');
+      console.log('chat: ', chat);
       div = `
       <div class="row mx-0 mt-3 prev-chat-container" id='${chat?.chatid}'>
         <div class="col-10 chat-list-item">
           <p class="chat-title mb-0">${chat?.chattitle}</p>
           <p class="chat-date mb-0">Created Date : ${chat?.dateadded}</p>
-          <p class="chat-date">Last Modified : 20 . January .2022</p>
+          <p class="chat-date">Last Modified : ${chat?.lastModifiedDate}</p>
         </div>
         <div class="col-2 text-right my-auto">
           <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
@@ -271,8 +272,8 @@ function searchRooms(e) {
           <div class="col-10 chat-list-item">
             <p class="chat-title mb-0">${chat?.chattitle}</p>
             <p class="chat-date mb-0">Created Date : ${chat?.dateadded}</p>
-            <p class="chat-date">Last Modified : 20 . January .2022</p>
-          </div>
+            <p class="chat-date">Last Modified : ${chat?.lastModifiedDate}</p>
+            </div>
           <div class="col-2 text-right my-auto">
             <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
             <img class="prev-chat-arrow-yellow" src="./assets/arrow-small-yellow.png" />
@@ -291,7 +292,7 @@ function searchRooms(e) {
         <div class="col-10 chat-list-item">
           <p class="chat-title mb-0">${chat?.chattitle}</p>
           <p class="chat-date mb-0">Created Date : ${chat?.dateadded}</p>
-          <p class="chat-date">Last Modified : 20 . January .2022</p>
+          <p class="chat-date">Last Modified : ${chat?.lastModifiedDate}</p>
         </div>
         <div class="col-2 text-right my-auto">
           <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
