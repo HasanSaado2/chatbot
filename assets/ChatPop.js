@@ -249,8 +249,8 @@ function fetchChats() {
           <p class="chat-date">Last Modified : 20 . January .2022</p>
         </div>
         <div class="col-2 text-right my-auto">
-          <img class="prev-chat-arrow-small" src="arrow-small.png" />
-          <img class="prev-chat-arrow-yellow" src="arrow-small-yellow.png" />
+          <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
+          <img class="prev-chat-arrow-yellow" src="./assets/arrow-small-yellow.png" />
         </div>
       </div>
       `;
@@ -274,8 +274,8 @@ function searchRooms(e) {
             <p class="chat-date">Last Modified : 20 . January .2022</p>
           </div>
           <div class="col-2 text-right my-auto">
-            <img class="prev-chat-arrow-small" src="arrow-small.png" />
-            <img class="prev-chat-arrow-yellow" src="arrow-small-yellow.png" />
+            <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
+            <img class="prev-chat-arrow-yellow" src="./assets/arrow-small-yellow.png" />
           </div>
         </div>
         `;
@@ -294,8 +294,8 @@ function searchRooms(e) {
           <p class="chat-date">Last Modified : 20 . January .2022</p>
         </div>
         <div class="col-2 text-right my-auto">
-          <img class="prev-chat-arrow-small" src="arrow-small.png" />
-          <img class="prev-chat-arrow-yellow" src="arrow-small-yellow.png" />
+          <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
+          <img class="prev-chat-arrow-yellow" src="./assets/arrow-small-yellow.png" />
         </div>
       </div>
       `;
