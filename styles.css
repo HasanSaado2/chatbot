@@ -1,0 +1,498 @@
+.chat-main {
+  position: absolute;
+  width: 724px;
+  bottom: 0;
+  right: 40px;
+}
+
+/* .hidden {
+  display: none;
+} */
+
+.show {
+  display: block;
+}
+
+.main-container {
+  background: transparent linear-gradient(180deg, #020A5866 0%, #FFFFFF00 100%) 0% 0% no-repeat padding-box;
+  border-radius: 23px;
+}
+
+#newQuestion {
+  cursor: pointer;
+}
+
+#sendIcon2 {
+  display: none;
+}
+
+#newQuestion:hover #sendIcon {
+  display: none;
+}
+
+#newQuestion:hover #sendIcon2 {
+  display: block;
+}
+
+#newQuestion:hover .main-new-ask {
+  color: #FBBE2C !important;
+}
+
+.chatbox-title {
+  font: normal normal bold 18px/39px Montserrat;
+}
+
+.arrow-small-yellow {
+  display: none;
+  float: right;
+}
+
+.main-terms {
+  cursor: pointer;
+}
+
+.main-prev-chat {
+  cursor: pointer;
+}
+
+.main-terms:hover p {
+  color: #FBBE2C;
+}
+
+.main-prev-chat:hover p {
+  color: #FBBE2C;
+}
+
+.main-prev-chat:hover .arrow-small {
+  display: none;
+}
+
+.main-prev-chat:hover .arrow-small-yellow {
+  display: block;
+}
+
+.main-terms:hover .arrow-small {
+  display: none;
+}
+
+.main-terms:hover .arrow-small-yellow {
+  display: block;
+}
+
+.main-help {
+  margin-top: 45px;
+}
+
+.main-title {
+  margin-top: 18px;
+  margin-bottom: 30px;
+  font: normal normal bold 30px/39px Montserrat;
+  text-transform: uppercase;
+  color: #020A58;
+}
+
+.main-new-chat {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 12px;
+  border: 1px solid #020A5826;
+}
+
+.main-terms {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 12px;
+  border: 1px solid #020A5826;
+  width: -webkit-fill-available;
+  bottom: 60px;
+}
+
+.robot-image {
+  height: 123px;
+}
+
+.main-prev-chat {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 12px;
+  border: 1px solid #020A5826;
+  width: -webkit-fill-available;
+  bottom: 150px;
+}
+
+.main-new-ask {
+  margin-bottom: 0;
+  font: normal normal bold 18px/39px Montserrat;
+  color: #020A58;
+}
+
+.chat-content:before {
+  content: "";
+  position: absolute;
+  bottom: -11px;
+  right: 30px;
+  height: 20px;
+  width: 20px;
+  background: #fff;
+  transform: rotate(45deg);
+  border-bottom: solid 1px #020A5866;
+  border-right: solid 1px #020A5866;
+  z-index: 9;
+}
+
+.chat-content {
+  border: 1px solid #020A5866;
+  border-radius: 24px;
+  margin-bottom: 14px;
+  height: 811.51px;
+}
+
+.chats {
+  /* overflow-x: scroll; */
+  overflow-x: hidden;
+  position: relative;
+  overflow-y: auto;
+  height: 680px;
+}
+
+.chats ul li {
+  display: inline-block;
+  list-style: none;
+  clear: both;
+  font-size: 13px;
+}
+
+.btn-primary {
+  background-color: #020a58 !important
+}
+
+.bot-icon {
+  background-color: #020A58;
+  padding: 8.45px 11.30px 11.30px 8.45px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.bot-icon-light-blue {
+  background-color: #1BADBA !important;
+}
+
+.bot-icon:hover {
+  background-color: #FBBE2C;
+}
+
+.send-icon {
+  padding: 13px 11px 11px 11px;
+  background: #e5e6ee;
+  width: 50px;
+  height: 50px;
+  border-radius: 36px;
+  cursor: pointer;
+}
+
+.send-icon:not(:last-child) {
+  opacity: 0.1 !important;
+}
+
+.send-svg {
+  width: 27px;
+  height: 25px;
+}
+
+.message-input {
+  top: 897px;
+  left: 1186px;
+  width: 100%;
+  height: 50px;
+  background: #e5e6ee;
+  border-radius: 36px;
+  color: #020A58 !important;
+  z-index: 11 !important;
+}
+
+.message-input:focus-visible {
+  outline: none !important;
+}
+
+.chat-header {
+  background: #9a9dbc 0% 0% no-repeat padding-box;
+  color: #fff;
+  height: 50px;
+  border-radius: 22px 22px 0px 0px;
+  width: 100%;
+}
+
+.arrow-left-yellow {
+  display: none;
+}
+
+.go-back {
+  font: normal normal bold 16px/39px Montserrat;
+  width: 131px;
+  cursor: pointer;
+  padding-left: 14px;
+}
+
+.go-back:hover {
+  background: #5d6294 0% 0% no-repeat padding-box;
+  border-radius: 21px 21px 21px 0px;
+  color: #FBBE2C;
+}
+
+.go-back:hover .arrow-left-white {
+  display: none;
+}
+
+.go-back:hover .arrow-left-yellow {
+  display: inline;
+}
+
+.sender {
+  color: #020A58;
+  font: normal normal bold 12px/31px Montserrat;
+}
+
+#message {
+  background: #EDEDED 0% 0% no-repeat padding-box;
+  /* float: right; */
+  border-radius: 12px;
+  max-width: 498px;
+  padding: 15px 20px 15px 23px;
+}
+
+#message>p {
+  text-align: left;
+  font: normal normal 500 15px/22px Montserrat;
+  letter-spacing: 0px;
+  color: #020A58;
+  max-width: 498px;
+}
+
+#message2 {
+  background: #9a9dbc 0% 0% no-repeat padding-box;
+  float: right;
+  border-radius: 12px;
+  max-width: 498px;
+  padding: 15px 20px 15px 23px;
+}
+
+#message2>p {
+  text-align: left;
+  font: normal normal medium 15px/22px Montserrat;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+}
+
+.message-container {
+  margin-bottom: 50px;
+}
+
+.receiver-message {
+  padding-right: 27px !important;
+}
+
+.close-icon {
+  cursor: pointer !important;
+}
+
+.e-icon {
+  height: 25px;
+  width: 27px;
+}
+
+.input-container {
+  position: absolute;
+  bottom: 16px;
+}
+
+.search-input {
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 24px;
+  padding-left: 30px;
+  border-radius: 12px;
+  border: 1px solid #020A5826;
+  color: #020A58;
+  font: normal normal bold 18px/39px Montserrat;
+}
+
+.search-input:focus-visible {
+  outline: unset;
+}
+
+.search-input-container:hover .search-input {
+  border: 1px solid #FBBE2C;
+  color: #FBBE2C;
+}
+
+.search-input-container:hover .search-input::placeholder {
+  color: #FBBE2C;
+}
+
+.search-input-container:hover .search-blue {
+  display: none;
+}
+
+.search-input-container:hover .search-yellow {
+  display: block;
+}
+
+.prev-chat-container {
+  border-bottom: 1px solid #020A5826;
+  cursor: pointer;
+}
+
+.search-yellow {
+  display: none;
+}
+
+.chat-title {
+  font: normal normal bold 18px/39px Montserrat;
+  color: #020A58;
+}
+
+.chat-date {
+  font: normal normal medium 15px/39px Montserrat;
+  color: #020A58;
+}
+
+.prev-chat-arrow-yellow {
+  display: none;
+  float: right;
+}
+
+.prev-chat-container:hover {
+  background: #FBBE2C26 0% 0% no-repeat padding-box;
+}
+
+.prev-chat-container:hover p {
+  color: #FBBE2C;
+}
+
+.prev-chat-container:hover .prev-chat-arrow-small {
+  display: none;
+}
+
+.prev-chat-container:hover .prev-chat-arrow-yellow {
+  display: block;
+}
+
+.search-img {
+  position: absolute;
+  right: 15px;
+  top: 26px
+}
+
+.bot-img {
+  display: none;
+}
+
+#prevChatsContainer {
+  overflow-x: hidden;
+  position: relative;
+  overflow-y: auto;
+  height: 730px;
+}
+
+@media screen and (min-width: 1024px) {}
+
+/* For Tablet View */
+@media screen and (min-device-width: 700px) and (max-device-width: 1024px) {
+  .chat-main {
+    width: 635px;
+  }
+
+  .chat-header {
+    width: 635px;
+  }
+
+  .chat-content {
+    height: 670px;
+  }
+
+  .chats {
+    height: 525px;
+  }
+
+  #prevChatsContainer {
+    height: 600px;
+  }
+}
+
+/* For Mobile Portrait View */
+@media screen and (max-device-width: 480px) and (orientation: portrait) {
+  .chat-content {
+    height: 500px;
+  }
+
+  .chat-main {
+    width: 308px;
+  }
+
+  .chats {
+    height: 361px;
+  }
+
+  .main-new-ask {
+    font: normal normal bold 14px/14px Montserrat;
+  }
+
+  .main-title {
+    font: normal normal bold 18px/10px Montserrat;
+  }
+
+  .robot-image {
+    height: 60px;
+  }
+
+  .main-help {
+    margin-top: 25px;
+  }
+
+  .send {
+    height: 20px;
+  }
+
+  #prevChatsContainer {
+    height: 410px;
+  }
+
+  #sendIcon {
+    height: 20px;
+  }
+
+  .search-input {
+    font: normal normal bold 11px/18px Montserrat;
+  }
+
+  .back-container {
+    margin-top: 0 !important;
+  }
+
+  #goBack2 {
+    font: normal normal bold 11px/39px Montserrat;
+  }
+  
+  .search-img {
+    height: 22px;
+    top: 21px;
+  }
+
+  .chatbox-title {
+    font: normal normal bold 11px Montserrat;
+    white-space: nowrap;
+  }
+}
+
+/* For Mobile Landscape View */
+@media screen and (max-device-width: 640px) and (orientation: landscape) {}
+
+/* For Mobile Phones Portrait or Landscape View */
+@media screen and (max-device-width: 640px) {}
