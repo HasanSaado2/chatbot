@@ -62,6 +62,7 @@ $('#goBack').click(function () {
   if (true === newChat) {
     $('#main').toggle();
   } else {
+    $('#chatActions').toggleClass('d-none', 'd-block');
     $('#previousConversations').toggle();
   }
 });
@@ -71,11 +72,36 @@ $('#goBack2').click(function () {
   $('#main').toggle();
 });
 
+$('#deleteChat').click(function () {
+  $.ajax({
+    url: `https://chatbottesting.cts.ae/api/api/Chatbot/DeleteChat/${id}`,
+    type: 'DELETE',
+    success: function (result) {
+      if (true === result) {
+        $('#prevContainer').html('');
+        fetchChats();
+        $('#chatConversation').toggle();
+        $('#chatActions').toggleClass('d-none', 'd-block');
+        $('#previousConversations').toggle();
+      }
+    }
+  });
+});
+
+$('#downloadChat').click(function () {
+  $.get(`https://chatbottesting.cts.ae/api/api/Chatbot/GetChatFile/${id}`, function (data) {
+    var newTab = window.open(data, '_blank');
+    newTab.location;
+  });
+});
 
 $('#prevChatsContainer').on('click', '.prev-chat-container', function () {
   id = this.id;
   newChat = false;
   $('#fullchat').html('');
+
+  $('#chatActions').toggleClass('d-none', 'd-block');
+
   $.getJSON(`https://chatbottesting.cts.ae/api/api/Chatbot/ChatListData/${this.id}`, (data) => {
     data.reverse().map((message) => {
       var div = document.createElement('div');
@@ -130,6 +156,7 @@ $('#prevChatsContainer').on('click', '.prev-chat-container', function () {
 function typeWriter(type = 'Marwa') {
   var div = document.createElement('div');
   i = 0;
+
   if ('Marwa' == type) {
     div.innerHTML = `
     <div class="row message-container">
@@ -241,14 +268,13 @@ function fetchChats() {
   $.getJSON(`https://chatbottesting.cts.ae/api/api/ChatBot/ChatList/${studentId}`, (data) => {
     data.map((chat) => {
       var div = document.createElement('div');
-      console.log('chat: ', chat);
       div = `
       <div class="row mx-0 mt-3 prev-chat-container" id='${chat?.chatid}'>
         <div class="col-10 chat-list-item">
           <p class="chat-title mb-0">${chat?.chattitle}</p>
-          <p class="chat-date mb-0">Created Date : ${chat?.dateadded}</p>
-          <p class="chat-date">Last Modified : ${chat?.lastModifiedDate}</p>
-        </div>
+          <p class="chat-date mb-0">Created Date : ${moment(chat?.dateadded).format('DD MMMM YYYY')}</p>
+          <p class="chat-date">Last Modified : ${moment(chat?.lastModifiedDate).format('DD MMMM YYYY')}</p>
+          </div>
         <div class="col-2 text-right my-auto">
           <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
           <img class="prev-chat-arrow-yellow" src="./assets/arrow-small-yellow.png" />
@@ -263,7 +289,7 @@ function fetchChats() {
 function searchRooms(e) {
   var SearchText = e.value;
   $("#prevContainer").html('');
-  if (SearchText == "") {
+  if (SearchText == "" || SearchText == " ") {
     $.getJSON(`https://chatbottesting.cts.ae/api/api/ChatBot/ChatList/${studentId}`, (data) => {
       data.map((chat) => {
         var div = document.createElement('div');
@@ -271,8 +297,8 @@ function searchRooms(e) {
         <div class="row mx-0 mt-3 prev-chat-container" id='${chat?.chatid}'>
           <div class="col-10 chat-list-item">
             <p class="chat-title mb-0">${chat?.chattitle}</p>
-            <p class="chat-date mb-0">Created Date : ${chat?.dateadded}</p>
-            <p class="chat-date">Last Modified : ${chat?.lastModifiedDate}</p>
+            <p class="chat-date mb-0">Created Date : ${moment(chat?.dateadded).format('DD MMMM YYYY')}</p>
+            <p class="chat-date">Last Modified : ${moment(chat?.lastModifiedDate).format('DD MMMM YYYY')}</p>
             </div>
           <div class="col-2 text-right my-auto">
             <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
@@ -283,16 +309,16 @@ function searchRooms(e) {
         $("#prevContainer").append(div);
       });
     });
-  }
-  $.getJSON(`https://chatbottesting.cts.ae/api/api/ChatBot/SearchChatList/${SearchText}/${studentId}`, (data) => {
-    data.map((chat) => {
-      var div = document.createElement('div');
-      div = `
+  } else {
+    $.getJSON(`https://chatbottesting.cts.ae/api/api/ChatBot/SearchChatList/${SearchText}/${studentId}`, (data) => {
+      data.map((chat) => {
+        var div = document.createElement('div');
+        div = `
       <div class="row mx-0 mt-3 prev-chat-container" id='${chat?.chatid}'>
         <div class="col-10 chat-list-item">
           <p class="chat-title mb-0">${chat?.chattitle}</p>
-          <p class="chat-date mb-0">Created Date : ${chat?.dateadded}</p>
-          <p class="chat-date">Last Modified : ${chat?.lastModifiedDate}</p>
+          <p class="chat-date mb-0">Created Date : ${moment(chat?.dateadded).format('DD MMMM YYYY')}</p>
+          <p class="chat-date">Last Modified : ${moment(chat?.lastModifiedDate).format('DD MMMM YYYY')}</p>
         </div>
         <div class="col-2 text-right my-auto">
           <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
@@ -300,7 +326,8 @@ function searchRooms(e) {
         </div>
       </div>
       `;
-      $("#prevContainer").append(div);
+        $("#prevContainer").append(div);
+      });
     });
-  });
+  }
 }

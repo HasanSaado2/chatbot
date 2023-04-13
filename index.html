@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
   href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -58,7 +59,7 @@
     <!-- Previous Conversations -->
     <div id="previousConversations" class="chat-content position-relative" style="display:none">
       <div class="row chat-header m-auto justify-content-between">
-        <div class="col-2 my-auto pl-1 back-container">
+        <div class="col-2 my-auto pl-1 back-container py-1">
           <div id="goBack2" class="go-back">
             <img src="./assets/arrow-left-white.png" class="arrow-left-white mr-1" />
             <img src="./assets/arrow-left-yellow.png" class="arrow-left-yellow mr-1" />
@@ -91,7 +92,7 @@
     <!-- Chat Conversation -->
     <div id="chatConversation" class="chat-content position-relative" style="display:none">
       <div class="row chat-header m-auto justify-content-between">
-        <div class="col-10 my-auto pl-1">
+        <div class="col-10 my-auto pl-1 py-1">
           <div id="goBack" class="go-back">
             <img src="./assets/arrow-left-white.png" class="arrow-left-white mr-1" />
             <img src="./assets/arrow-left-yellow.png" class="arrow-left-yellow mr-1" />
@@ -104,6 +105,18 @@
               d="M17.737,8.085l-6.5-.122-.122-6.5A1.309,1.309,0,0,0,9.837.185L9,.169A1.2,1.2,0,0,0,7.777,1.4L7.9,7.9,1.4,7.779A1.2,1.2,0,0,0,.169,9.006l.016.833a1.309,1.309,0,0,0,1.275,1.275l6.5.122.122,6.5A1.309,1.309,0,0,0,9.36,19.012l.833.016A1.2,1.2,0,0,0,11.421,17.8L11.3,11.3l6.5.122a1.2,1.2,0,0,0,1.228-1.228l-.016-.832A1.31,1.31,0,0,0,17.737,8.085Z"
               transform="translate(13.335 -0.239) rotate(45)" fill="#fff" />
           </svg>
+        </div>
+        <div id="chatActions" class="w-100 d-none">
+          <div class="row mx-0 my-2">
+            <div id="deleteChat" class="col text-center chat-action-icon mx-2 py-1">
+              <img src="./assets/delete-icon.png" alt="delete" />
+              <span>Delete</span>
+            </div>
+            <div id="downloadChat" class="col text-center chat-action-icon mx-2 py-1">
+              <img src="./assets/download-icon.png" alt="download" />
+              <span>Download</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-md-12 chats pt-3 pl-2 pr-3 pb-3">

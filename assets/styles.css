@@ -223,7 +223,7 @@
 .chat-header {
   background: #9a9dbc 0% 0% no-repeat padding-box;
   color: #fff;
-  height: 50px;
+  /* height: 50px; */
   border-radius: 22px 22px 0px 0px;
   width: 100%;
 }
@@ -401,6 +401,17 @@
   height: 730px;
 }
 
+.chat-action-icon {
+  cursor: pointer;
+  background: #a4a7c3 0% 0% no-repeat padding-box;
+  border-radius: 22px;
+  font: normal normal bold 16px/39px Montserrat
+}
+
+.chat-action-icon:hover {
+  background: #b8bbd0 0% 0% no-repeat padding-box;
+}
+
 @media screen and (min-width: 1024px) {}
 
 /* For Tablet View */
@@ -479,7 +490,7 @@
   #goBack2 {
     font: normal normal bold 11px/39px Montserrat;
   }
-  
+
   .search-img {
     height: 22px;
     top: 21px;
