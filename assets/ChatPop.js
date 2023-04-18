@@ -306,7 +306,7 @@ $('#prevChatsContainer').on('click', '.prev-chat-container', function () {
       $("#fullchat").append(div);
     });
   });
-  $('.chats').scrollTop($('.chats')[0].scrollHeight);
+  $('#chatMain').scrollTop($('.chats')[0].scrollHeight);
   $('#chatConversation').toggle();
   $('#previousConversations').toggle();
 });
@@ -355,7 +355,7 @@ function typeWriter(type = 'Marwa') {
     `;
   }
   $("#fullchat").append(div);
-  $('.chats').scrollTop($('.chats')[0].scrollHeight);
+  $('#chatMain').scrollTop($('.chats')[0].scrollHeight);
   typeText();
 }
 
