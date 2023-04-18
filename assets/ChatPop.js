@@ -8,7 +8,7 @@ var newChat = true;
 
 $(document).ready(function () {
   var one = 1;
-  console.log('hello!');
+  console.log('hello!', one);
   var body = `
   <div id="container">
     <!-- Main Menu -->
