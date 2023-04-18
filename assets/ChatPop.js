@@ -7,6 +7,7 @@ var studentId = '12345';
 var newChat = true;
 
 $(document).ready(function () {
+  console.log('hello!');
   var body = `
   <div id="container">
     <!-- Main Menu -->
@@ -171,6 +172,7 @@ $(document).ready(function () {
 });
 
 $('#chatMain').on('click', '.hide-chat-box', function () {
+  console.log('hello2!');
   if ($('#main').is(':visible')) {
     $("#main").toggle();
   }
