@@ -7,6 +7,11 @@ var studentId = '12345';
 var newChat = true;
 
 $(document).ready(function () {
+
+  $('head').append(`<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"></link>`);
+
   var one = 1;
   console.log('hello!!', one);
   var body = `
@@ -192,17 +197,17 @@ $(document).ready(function () {
     $("#main").toggle();
     $('.hide-chat-box').removeClass('bot-icon-light-blue');
   });
-  
+
   $('#chatMain').on('click', '#closeIcon2', function () {
     $('#previousConversations').toggle();
     $('.hide-chat-box').removeClass('bot-icon-light-blue');
   });
-  
+
   $('#chatMain').on('click', '#closeIcon3', function () {
     $('#chatConversation').toggle();
     $('.hide-chat-box').removeClass('bot-icon-light-blue');
   });
-  
+
   $('#chatMain').on('click', '#newQuestion', function () {
     id = '';
     prmptOld = '';
@@ -211,12 +216,12 @@ $(document).ready(function () {
     $('#chatConversation').toggle();
     $('#main').toggle();
   });
-  
+
   $('#chatMain').on('click', '#prevChats', function () {
     $('#previousConversations').toggle();
     $('#main').toggle();
   });
-  
+
   $('#chatMain').on('click', '#goBack', function () {
     $('#chatConversation').toggle();
     if (true === newChat) {
@@ -226,12 +231,12 @@ $(document).ready(function () {
       $('#previousConversations').toggle();
     }
   });
-  
+
   $('#chatMain').on('click', '#goBack2', function () {
     $('#previousConversations').toggle();
     $('#main').toggle();
   });
-  
+
   $('#chatMain').on('click', '#deleteChat', function () {
     $.ajax({
       url: `https://chatbottesting.cts.ae/api/api/Chatbot/DeleteChat/${id}`,
@@ -247,7 +252,7 @@ $(document).ready(function () {
       }
     });
   });
-  
+
   $('#chatMain').on('click', '#downloadChat', function () {
     $.get(`https://chatbottesting.cts.ae/api/api/Chatbot/GetChatFile/${id}`, function (data) {
       var newTab = window.open(data, '_blank');
