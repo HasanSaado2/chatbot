@@ -20,7 +20,7 @@ $(document).ready(function () {
           </svg>
         </div>
         <div class="text-center main-help">
-          <img src="./assets/robot-icon.png" class="robot-image" alt="robot" />
+          <img src="https://chatbottesting.cts.ae/assets/robot-icon.png" class="robot-image" alt="robot" />
           <p class="main-title">how can I help you?</p>
         </div>
       </div>
@@ -29,9 +29,9 @@ $(document).ready(function () {
           <p class="main-new-ask">Ask Us A New Question</p>
         </div>
         <div class="col-2 text-right">
-          <!-- <img src="./send.png" class="send" alt="send" /> -->
-          <img id="sendIcon" src="./assets/send.png" />
-          <img class="float-right" id="sendIcon2" src="./assets/send-yellow.png" />
+          <!-- <img src="https://chatbottesting.cts.ae/send.png" class="send" alt="send" /> -->
+          <img id="sendIcon" src="https://chatbottesting.cts.ae/assets/send.png" />
+          <img class="float-right" id="sendIcon2" src="https://chatbottesting.cts.ae/assets/send-yellow.png" />
         </div>
       </div>
       <div id="prevChats" class="main-prev-chat row mx-4 position-absolute">
@@ -39,8 +39,8 @@ $(document).ready(function () {
           <p class="main-new-ask">Your Previous Chats</p>
         </div>
         <div class="col-2 text-right my-auto">
-          <img src="./assets/arrow-small.png" class="arrow-small" />
-          <img src="./assets/arrow-small-yellow.png" class="arrow-small-yellow" />
+          <img src="https://chatbottesting.cts.ae/assets/arrow-small.png" class="arrow-small" />
+          <img src="https://chatbottesting.cts.ae/assets/arrow-small-yellow.png" class="arrow-small-yellow" />
         </div>
       </div>
       <div class="main-terms row mx-4 position-absolute">
@@ -48,8 +48,8 @@ $(document).ready(function () {
           <p class="main-new-ask">Terms And Conditions</p>
         </div>
         <div class="col-2 text-right my-auto">
-          <img src="./assets/arrow-small.png" class="arrow-small" />
-          <img src="./assets/arrow-small-yellow.png" class="arrow-small-yellow" />
+          <img src="https://chatbottesting.cts.ae/assets/arrow-small.png" class="arrow-small" />
+          <img src="https://chatbottesting.cts.ae/assets/arrow-small-yellow.png" class="arrow-small-yellow" />
         </div>
       </div>
     </div>
@@ -59,8 +59,8 @@ $(document).ready(function () {
       <div class="row chat-header m-auto justify-content-between">
         <div class="col-2 my-auto pl-1 back-container py-1">
           <div id="goBack2" class="go-back">
-            <img src="./assets/arrow-left-white.png" class="arrow-left-white mr-1" />
-            <img src="./assets/arrow-left-yellow.png" class="arrow-left-yellow mr-1" />
+            <img src="https://chatbottesting.cts.ae/assets/arrow-left-white.png" class="arrow-left-white mr-1" />
+            <img src="https://chatbottesting.cts.ae/assets/arrow-left-yellow.png" class="arrow-left-yellow mr-1" />
             <span class="mb-0">Go Back</span>
           </div>
         </div>
@@ -79,8 +79,8 @@ $(document).ready(function () {
         <div class="position-relative search-input-container">
           <input onkeyup="searchRooms(this)" id="searchInput" class="search-input" type="text"
             placeholder="| Search For Asked Questions" />
-          <img class="search-img search-blue" src="./assets/search-icon-blue.png" />
-          <img class="search-img search-yellow" src="./assets/search-icon-yellow.png" />
+          <img class="search-img search-blue" src="https://chatbottesting.cts.ae/assets/search-icon-blue.png" />
+          <img class="search-img search-yellow" src="https://chatbottesting.cts.ae/assets/search-icon-yellow.png" />
         </div>
         <div id="prevContainer">
         </div>
@@ -92,8 +92,8 @@ $(document).ready(function () {
       <div class="row chat-header m-auto justify-content-between">
         <div class="col-10 my-auto pl-1 py-1">
           <div id="goBack" class="go-back">
-            <img src="./assets/arrow-left-white.png" class="arrow-left-white mr-1" />
-            <img src="./assets/arrow-left-yellow.png" class="arrow-left-yellow mr-1" />
+            <img src="https://chatbottesting.cts.ae/assets/arrow-left-white.png" class="arrow-left-white mr-1" />
+            <img src="https://chatbottesting.cts.ae/assets/arrow-left-yellow.png" class="arrow-left-yellow mr-1" />
             <span class="mb-0">Go Back</span>
           </div>
         </div>
@@ -107,11 +107,11 @@ $(document).ready(function () {
         <div id="chatActions" class="w-100 d-none">
           <div class="row mx-0 my-2">
             <div id="deleteChat" class="col text-center chat-action-icon mx-2 py-1">
-              <img src="./assets/delete-icon.png" alt="delete" />
+              <img src="https://chatbottesting.cts.ae/assets/delete-icon.png" alt="delete" />
               <span>Delete</span>
             </div>
             <div id="downloadChat" class="col text-center chat-action-icon mx-2 py-1">
-              <img src="./assets/download-icon.png" alt="download" />
+              <img src="https://chatbottesting.cts.ae/assets/download-icon.png" alt="download" />
               <span>Download</span>
             </div>
           </div>
@@ -130,7 +130,7 @@ $(document).ready(function () {
           </div>
           <div class="col-2 col-md-1 pl-2">
             <div class="send-icon float-right">
-              <img src="./assets/e-icon.png" class="e-icon" />
+              <img src="https://chatbottesting.cts.ae/assets/e-icon.png" class="e-icon" />
             </div>
           </div>
         </div>
@@ -434,8 +434,8 @@ function fetchChats() {
           <p class="chat-date">Last Modified : ${moment(chat?.lastModifiedDate).format('DD MMMM YYYY')}</p>
           </div>
         <div class="col-2 text-right my-auto">
-          <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
-          <img class="prev-chat-arrow-yellow" src="./assets/arrow-small-yellow.png" />
+          <img class="prev-chat-arrow-small" src="https://chatbottesting.cts.ae/assets/arrow-small.png" />
+          <img class="prev-chat-arrow-yellow" src="https://chatbottesting.cts.ae/assets/arrow-small-yellow.png" />
         </div>
       </div>
       `;
@@ -459,8 +459,8 @@ function searchRooms(e) {
             <p class="chat-date">Last Modified : ${moment(chat?.lastModifiedDate).format('DD MMMM YYYY')}</p>
             </div>
           <div class="col-2 text-right my-auto">
-            <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
-            <img class="prev-chat-arrow-yellow" src="./assets/arrow-small-yellow.png" />
+            <img class="prev-chat-arrow-small" src="https://chatbottesting.cts.ae/assets/arrow-small.png" />
+            <img class="prev-chat-arrow-yellow" src="https://chatbottesting.cts.ae/assets/arrow-small-yellow.png" />
           </div>
         </div>
         `;
@@ -479,8 +479,8 @@ function searchRooms(e) {
           <p class="chat-date">Last Modified : ${moment(chat?.lastModifiedDate).format('DD MMMM YYYY')}</p>
         </div>
         <div class="col-2 text-right my-auto">
-          <img class="prev-chat-arrow-small" src="./assets/arrow-small.png" />
-          <img class="prev-chat-arrow-yellow" src="./assets/arrow-small-yellow.png" />
+          <img class="prev-chat-arrow-small" src="https://chatbottesting.cts.ae/assets/arrow-small.png" />
+          <img class="prev-chat-arrow-yellow" src="https://chatbottesting.cts.ae/assets/arrow-small-yellow.png" />
         </div>
       </div>
       `;
