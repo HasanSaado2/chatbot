@@ -187,73 +187,72 @@ $(document).ready(function () {
     }
     $(this).toggleClass('bot-icon-light-blue');
   });
-});
 
-
-$('#chatMain').on('click', '#closeIcon', function () {
-  $("#main").toggle();
-  $('.hide-chat-box').removeClass('bot-icon-light-blue');
-});
-
-$('#chatMain').on('click', '#closeIcon2', function () {
-  $('#previousConversations').toggle();
-  $('.hide-chat-box').removeClass('bot-icon-light-blue');
-});
-
-$('#chatMain').on('click', '#closeIcon3', function () {
-  $('#chatConversation').toggle();
-  $('.hide-chat-box').removeClass('bot-icon-light-blue');
-});
-
-$('#chatMain').on('click', '#newQuestion', function () {
-  id = '';
-  prmptOld = '';
-  $('#fullchat').html('');
-  typeWriter();
-  $('#chatConversation').toggle();
-  $('#main').toggle();
-});
-
-$('#chatMain').on('click', '#prevChats', function () {
-  $('#previousConversations').toggle();
-  $('#main').toggle();
-});
-
-$('#chatMain').on('click', '#goBack', function () {
-  $('#chatConversation').toggle();
-  if (true === newChat) {
-    $('#main').toggle();
-  } else {
-    $('#chatActions').toggleClass('d-none', 'd-block');
+  $('#chatMain').on('click', '#closeIcon', function () {
+    $("#main").toggle();
+    $('.hide-chat-box').removeClass('bot-icon-light-blue');
+  });
+  
+  $('#chatMain').on('click', '#closeIcon2', function () {
     $('#previousConversations').toggle();
-  }
-});
-
-$('#chatMain').on('click', '#goBack2', function () {
-  $('#previousConversations').toggle();
-  $('#main').toggle();
-});
-
-$('#chatMain').on('click', '#deleteChat', function () {
-  $.ajax({
-    url: `https://chatbottesting.cts.ae/api/api/Chatbot/DeleteChat/${id}`,
-    type: 'DELETE',
-    success: function (result) {
-      if (true === result) {
-        $('#prevContainer').html('');
-        fetchChats();
-        $('#chatConversation').toggle();
-        $('#chatActions').toggleClass('d-none', 'd-block');
-        $('#previousConversations').toggle();
-      }
+    $('.hide-chat-box').removeClass('bot-icon-light-blue');
+  });
+  
+  $('#chatMain').on('click', '#closeIcon3', function () {
+    $('#chatConversation').toggle();
+    $('.hide-chat-box').removeClass('bot-icon-light-blue');
+  });
+  
+  $('#chatMain').on('click', '#newQuestion', function () {
+    id = '';
+    prmptOld = '';
+    $('#fullchat').html('');
+    typeWriter();
+    $('#chatConversation').toggle();
+    $('#main').toggle();
+  });
+  
+  $('#chatMain').on('click', '#prevChats', function () {
+    $('#previousConversations').toggle();
+    $('#main').toggle();
+  });
+  
+  $('#chatMain').on('click', '#goBack', function () {
+    $('#chatConversation').toggle();
+    if (true === newChat) {
+      $('#main').toggle();
+    } else {
+      $('#chatActions').toggleClass('d-none', 'd-block');
+      $('#previousConversations').toggle();
     }
   });
-});
-
-$('#chatMain').on('click', '#downloadChat', function () {
-  $.get(`https://chatbottesting.cts.ae/api/api/Chatbot/GetChatFile/${id}`, function (data) {
-    var newTab = window.open(data, '_blank');
-    newTab.location;
+  
+  $('#chatMain').on('click', '#goBack2', function () {
+    $('#previousConversations').toggle();
+    $('#main').toggle();
+  });
+  
+  $('#chatMain').on('click', '#deleteChat', function () {
+    $.ajax({
+      url: `https://chatbottesting.cts.ae/api/api/Chatbot/DeleteChat/${id}`,
+      type: 'DELETE',
+      success: function (result) {
+        if (true === result) {
+          $('#prevContainer').html('');
+          fetchChats();
+          $('#chatConversation').toggle();
+          $('#chatActions').toggleClass('d-none', 'd-block');
+          $('#previousConversations').toggle();
+        }
+      }
+    });
+  });
+  
+  $('#chatMain').on('click', '#downloadChat', function () {
+    $.get(`https://chatbottesting.cts.ae/api/api/Chatbot/GetChatFile/${id}`, function (data) {
+      var newTab = window.open(data, '_blank');
+      newTab.location;
+    });
   });
 });
 
