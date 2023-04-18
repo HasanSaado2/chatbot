@@ -170,24 +170,25 @@ $(document).ready(function () {
   typeWriter();
   $("#sendmessage").disabled = true;
   fetchChats();
+
+  $('#chatMain').on('click', '.hide-chat-box', function () {
+    console.log('hello2!');
+    if ($('#main').is(':visible')) {
+      $("#main").toggle();
+    }
+    else if ($('#previousConversations').is(':visible')) {
+      $("#previousConversations").toggle();
+    }
+    else if ($('#chatConversation').is(':visible')) {
+      $("#chatConversation").toggle();
+    }
+    else {
+      $("#main").toggle();
+    }
+    $(this).toggleClass('bot-icon-light-blue');
+  });
 });
 
-$('#container').on('click', '.hide-chat-box', function () {
-  console.log('hello2!');
-  if ($('#main').is(':visible')) {
-    $("#main").toggle();
-  }
-  else if ($('#previousConversations').is(':visible')) {
-    $("#previousConversations").toggle();
-  }
-  else if ($('#chatConversation').is(':visible')) {
-    $("#chatConversation").toggle();
-  }
-  else {
-    $("#main").toggle();
-  }
-  $(this).toggleClass('bot-icon-light-blue');
-});
 
 $('#chatMain').on('click', '#closeIcon', function () {
   $("#main").toggle();
