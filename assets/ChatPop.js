@@ -6,6 +6,12 @@ var prmptOld = '';
 var studentId = '12345';
 var newChat = true;
 
+document.getElementById("myFrame").addEventListener("load", addJQueryCdn);
+
+function addJQueryCdn() {
+  console.log('hi');
+}
+
 $(document).ready(function () {
 
   $('head').append(`
@@ -20,7 +26,6 @@ $(document).ready(function () {
   `);
 
   var one = 1;
-  console.log('hello!!', one);
   var body = `
   <div id="container">
     <!-- Main Menu -->
@@ -184,7 +189,6 @@ $(document).ready(function () {
   fetchChats();
 
   $('#chatMain').on('click', '.hide-chat-box', function () {
-    console.log('hello2!');
     if ($('#main').is(':visible')) {
       $("#main").toggle();
     }
