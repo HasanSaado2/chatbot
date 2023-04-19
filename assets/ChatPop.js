@@ -6,7 +6,7 @@ var prmptOld = '';
 var studentId = '12345';
 var newChat = true;
 
-document.getElementById("myFrame").addEventListener("load", addJQueryCdn);
+document.getElementById("chatMain").addEventListener("load", addJQueryCdn);
 
 function addJQueryCdn() {
   console.log('hi');
