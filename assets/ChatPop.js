@@ -6,11 +6,9 @@ var prmptOld = '';
 var studentId = '12345';
 var newChat = true;
 
-document.getElementById("chatMain").addEventListener("load", addJQueryCdn);
+var main = document.getElementsByTagName("head");
 
-function addJQueryCdn() {
-  console.log('hi');
-}
+main.html = main.hrml + '<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>';
 
 $(document).ready(function () {
 
@@ -19,7 +17,6 @@ $(document).ready(function () {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"></link>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
   <script src="
         https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
         "></script>
