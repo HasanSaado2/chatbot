@@ -1,10 +1,35 @@
-﻿var i = 0;
+var i = 0;
 var txt = "I am a GPT powered AI bot. How can i help you today?";
 var speed = 50;
 var id = "";
 var prmptOld = "";
-var studentId = "12345";
+var studentId = "1234567";
 var newChat = true;
+
+var chats = [
+  {
+    chatid: "12345c15d8622-69a9-4715-8945-b200be58d2b0",
+    chattitle: "How do I contact HCT",
+    dateadded: "2023-04-11T09:50:46",
+    id: 42,
+    isDeleted: "F",
+    lastModifiedDate: "2023-04-11T09:50:46",
+    studentid: "12345",
+    answer:
+      "1 - If you wish to contact an HCT college or department directly please visit [HCT Contact Directory](http://www.hct.ac.ae/contact/directory/) You also have the option to make a general inquiry to HCT by completing the details on the following page: [Contact HCT](http://www.hct.ac.ae/contact/) Source: https://hct.ac.ae/en/website-information/faq/",
+  },
+  {
+    chatid: "12345c15d8622-69a9-4715-8945-b200be58d2b0",
+    chattitle: "What are the entry requirements for HCT",
+    dateadded: "2023-04-11T09:50:46",
+    id: 43,
+    isDeleted: "F",
+    lastModifiedDate: "2023-04-11T09:50:46",
+    studentid: "12345",
+    answer:
+      "1 - If you wish to contact an HCT college or department directly please visit [HCT Contact Directory](http://www.hct.ac.ae/contact/directory/) You also have the option to make a general inquiry to HCT by completing the details on the following page: [Contact HCT](http://www.hct.ac.ae/contact/) Source: https://hct.ac.ae/en/website-information/faq/",
+  },
+];
 
 window.onload = (e) => {
   var main = document.getElementsByTagName("head")[0];
@@ -231,6 +256,7 @@ $(document).ready(function () {
 
   $("#chatMain").on("click", "#goBack", function () {
     $("#chatConversation").toggle();
+
     if (true === newChat) {
       $("#main").toggle();
     } else {
@@ -245,24 +271,20 @@ $(document).ready(function () {
   });
 
   $("#chatMain").on("click", "#deleteChat", function () {
-    $.ajax({
-      url: `http://10.1.139.145:8989/api/Chatbot/DeleteChat/${id}`,
-      type: "DELETE",
-      success: function (result) {
-        if (true === result) {
-          $("#prevContainer").html("");
-          fetchChats();
-          $("#chatConversation").toggle();
-          $("#chatActions").toggleClass("d-none", "d-block");
-          $("#previousConversations").toggle();
-        }
-      },
+    console.log("id: ", id);
+    $("#chatConversation").toggle();
+    $("#chatActions").toggleClass("d-none", "d-block");
+    $("#previousConversations").toggle();
+    chats = chats.filter(function (item) {
+      return item.chatid != id;
     });
+    $(`#${id}`).remove();
+    fetchChats();
   });
 
   $("#chatMain").on("click", "#downloadChat", function () {
     $.get(
-      `http://10.1.139.145:8989/api/Chatbot/GetChatFile/${id}`,
+      `https://chatbottesting.cts.ae/api/api/Chatbot/GetChatFile/${id}`,
       function (data) {
         var newTab = window.open(data, "_blank");
         newTab.location;
@@ -278,7 +300,7 @@ $(document).ready(function () {
     $("#chatActions").toggleClass("d-none", "d-block");
 
     $.getJSON(
-      `http://10.1.139.145:8989/api/Chatbot/ChatListData/${this.id}`,
+      `https://chatbottesting.cts.ae/api/api/Chatbot/ChatListData/${this.id}`,
       (data) => {
         data.reverse().map((message) => {
           var div = document.createElement("div");
@@ -433,16 +455,13 @@ function WorkOutResponses(ip) {
     var chatId = studentId + uuidv4();
   }
 
-  $.getJSON(
-    `http://10.1.139.145:8989/api/Chatbot/Chat/${studentId}/${chatId}/${oldprompt.replace(
-      /\\\//g,
-      ""
-    )}/${prompt}`,
-    (data) => {
+  $.ajax({
+    url: `https://chatbottesting.cts.ae/api/Chat/GetAnswer/${prompt}`,
+    success: function (data) {
       $("#PromptResponse").val(data); // this will set hidden field value
       StartWriter(data, "HCT AI");
-    }
-  );
+    },
+  });
   id = chatId;
 }
 
@@ -453,12 +472,11 @@ function StartWriter(prompt, mperson) {
 }
 
 function fetchChats() {
-  $.getJSON(
-    `http://10.1.139.145:8989/api/ChatBot/ChatList/${studentId}`,
-    (data) => {
-      data.map((chat) => {
-        var div = document.createElement("div");
-        div = `
+  var div = document.createElement("div");
+  div = ``;
+  console.log("chats: ", chats);
+  chats.map((chat) => {
+    div = `
       <div class="row mx-0 mt-3 prev-chat-container" id='${chat?.chatid}'>
         <div class="col-10 chat-list-item">
           <p class="chat-title mb-0">${chat?.chattitle}</p>
@@ -475,18 +493,46 @@ function fetchChats() {
         </div>
       </div>
       `;
-        $("#prevContainer").append(div);
-      });
-    }
-  );
+    $("#prevContainer").append(div);
+  });
 }
+
+// function fetchChats() {
+//   $.getJSON(
+//     `https://chatbottesting.cts.ae/api/api/ChatBot/ChatList/${studentId}`,
+//     (data) => {
+//       console.log("data: ", data);
+//       chats.map((chat) => {
+//         var div = document.createElement("div");
+//         div = `
+//       <div class="row mx-0 mt-3 prev-chat-container" id='${chat?.chatid}'>
+//         <div class="col-10 chat-list-item">
+//           <p class="chat-title mb-0">${chat?.chattitle}</p>
+//           <p class="chat-date mb-0">Created Date : ${moment(
+//             chat?.dateadded
+//           ).format("DD MMMM YYYY")}</p>
+//           <p class="chat-date">Last Modified : ${moment(
+//             chat?.lastModifiedDate
+//           ).format("DD MMMM YYYY")}</p>
+//           </div>
+//         <div class="col-2 text-right my-auto">
+//           <img class="prev-chat-arrow-small" src="https://chatbottesting.cts.ae/assets/arrow-small.png" />
+//           <img class="prev-chat-arrow-yellow" src="https://chatbottesting.cts.ae/assets/arrow-small-yellow.png" />
+//         </div>
+//       </div>
+//       `;
+//         $("#prevContainer").append(div);
+//       });
+//     }
+//   );
+// }
 
 function searchRooms(e) {
   var SearchText = e.value;
   $("#prevContainer").html("");
   if (SearchText == "" || SearchText == " ") {
     $.getJSON(
-      `http://10.1.139.145:8989/api/ChatBot/ChatList/${studentId}`,
+      `https://chatbottesting.cts.ae/api/api/ChatBot/ChatList/${studentId}`,
       (data) => {
         data.map((chat) => {
           var div = document.createElement("div");
@@ -513,7 +559,7 @@ function searchRooms(e) {
     );
   } else {
     $.getJSON(
-      `http://10.1.139.145:8989/api/ChatBot/SearchChatList/${SearchText}/${studentId}`,
+      `https://chatbottesting.cts.ae/api/api/ChatBot/SearchChatList/${SearchText}/${studentId}`,
       (data) => {
         data.map((chat) => {
           var div = document.createElement("div");
