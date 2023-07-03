@@ -3,6 +3,7 @@
   width: 724px;
   bottom: 0;
   right: 40px;
+  z-index: 999;
 }
 
 /* .hidden {
@@ -14,8 +15,9 @@
 }
 
 .main-container {
-  background: transparent linear-gradient(180deg, #020A5866 0%, #FFFFFF00 100%) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(180deg, #020A5866 0%, #FFFFFF 100%) 0% 0% no-repeat padding-box;
   border-radius: 23px;
+  /* height: 100%; */
 }
 
 #newQuestion {
@@ -40,6 +42,13 @@
 
 .chatbox-title {
   font: normal normal bold 18px/39px Montserrat;
+}
+
+.close-button {
+  height: 20px;
+  margin-left: 6px;
+  margin-top: 6px;
+  display: none;
 }
 
 .arrow-small-yellow {
@@ -144,18 +153,24 @@
 }
 
 .chat-content {
-  border: 1px solid #020A5866;
+  border: 1px solid #bcbed2;
   border-radius: 24px;
   margin-bottom: 14px;
-  height: 811.51px;
+  height: 670px;
+  background-color: #fff;
+  position: fixed !important;
+    bottom: 150px;
+    width: 753px;
+    right: 22px;
+    box-shadow: 0px 4px 8px 4px rgba(0,0,0,.2);
 }
 
 .chats {
   /* overflow-x: scroll; */
   overflow-x: hidden;
   position: relative;
-  overflow-y: auto;
-  height: 680px;
+  overflow-y: scroll;
+  height: 480px;
 }
 
 .chats ul li {
@@ -177,6 +192,10 @@
   border-radius: 25px;
   cursor: pointer;
   margin-right: 1rem;
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  box-shadow: 0 0px 6px 5px rgba(0,0,0,0.35);
 }
 
 .bot-icon-light-blue {
@@ -206,14 +225,32 @@
 }
 
 .message-input {
+  padding-top: 16px;
+    padding-bottom: 0;
   top: 897px;
   left: 1186px;
   width: 100%;
-  height: 50px;
+  max-height: 70px;
   background: #e5e6ee;
   border-radius: 36px;
   color: #020A58 !important;
   z-index: 11 !important;
+  resize: none;
+  font-size: 15px !important;
+  font: normal normal 500 15px/22px Montserrat;
+	overflow: hidden;
+	box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.terms {
+  font-size: 15px !important;
+  font: normal normal 500 15px/22px Montserrat;
+}
+
+.terms-title {
+  font: normal normal bold 18px/39px Montserrat;
+  color: #020A58 !important;
 }
 
 .message-input:focus-visible {
@@ -272,21 +309,31 @@
   letter-spacing: 0px;
   color: #020A58;
   max-width: 498px;
+  white-space: break-spaces;
+}
+
+.disclaimer {
+  font: normal normal 500 10px Montserrat;
+  color: #BB0000;
 }
 
 #message2 {
   background: #9a9dbc 0% 0% no-repeat padding-box;
   float: right;
   border-radius: 12px;
-  max-width: 498px;
+  min-width: 498px;
   padding: 15px 20px 15px 23px;
 }
 
 #message2>p {
   text-align: left;
-  font: normal normal medium 15px/22px Montserrat;
+  font: normal normal 15px/22px Montserrat;
+  font-family: "Montserrat";
+  font-size: 15px;
+  font-weight: 500;
   letter-spacing: 0px;
   color: #FFFFFF;
+  overflow-wrap: anywhere;
 }
 
 .message-container {
@@ -299,6 +346,17 @@
 
 .close-icon {
   cursor: pointer !important;
+  float: right;
+}
+
+.minimize-icon {
+  padding-top: 4px;
+  cursor: pointer;
+}
+
+.minimize-icon2 {
+  padding-top: 11px;
+  cursor: pointer;
 }
 
 .e-icon {
@@ -313,13 +371,13 @@
 
 .search-input {
   width: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-right: 24px;
-  padding-left: 30px;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  padding-right: 24px !important;
+  padding-left: 30px !important;
   border-radius: 12px;
-  border: 1px solid #020A5826;
-  color: #020A58;
+  border: 1px solid #020A5826 !important;
+  color: #020A58 !important;
   font: normal normal bold 18px/39px Montserrat;
 }
 
@@ -338,6 +396,10 @@
 
 .search-input-container:hover .search-blue {
   display: none;
+}
+
+.chat-list-item {
+  text-wrap: nowrap;
 }
 
 .search-input-container:hover .search-yellow {
@@ -360,6 +422,9 @@
 
 .chat-date {
   font: normal normal medium 15px/39px Montserrat;
+  font-family: "Montserrat";
+  font-weight: 500;
+  font-size: 15px;
   color: #020A58;
 }
 
@@ -398,7 +463,7 @@
   overflow-x: hidden;
   position: relative;
   overflow-y: auto;
-  height: 730px;
+  height: 480px;
 }
 
 .chat-action-icon {
@@ -507,3 +572,27 @@
 
 /* For Mobile Phones Portrait or Landscape View */
 @media screen and (max-device-width: 640px) {}
+
+@media (-webkit-max-device-pixel-ratio: 1.5) {
+  .chat-content{
+    height: 560px !important;
+    width: 670px !important;
+  }
+
+  .main-container {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .main-help {
+    margin-top: 0 !important;
+  }
+
+  .robot-image {
+    height: 85px !important;
+  }
+
+  .chats {
+    height: 350px;
+  }
+}

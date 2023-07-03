@@ -1,41 +1,78 @@
 ﻿var i = 0;
 var txt = "I am a GPT powered AI bot. How can i help you today?";
-var speed = 50;
+var speed = 20;
 var id = "";
 var prmptOld = "";
-var studentId = "12345";
 var newChat = true;
+var state = "";
+var ncid = getCookie("encid");
+var decrypted = "";
+// var ncid = "4hZ0qO1J11PRakfMTjw8lw2";
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == " ") {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+// $("#newmessage").on("input", function () {
+//   var scroll_height = $("newmessage").get(0).scrollHeight;
+//   $("#newmessage").css("height", scroll_height + "px");
+// });
 
 window.onload = (e) => {
-  var main = document.getElementsByTagName("head")[0];
-  main.innerHTML =
-    main.innerHTML +
-    '<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>';
+  $.get(`https://ctsbe.hct.ac.ae/api/Chatbot/DS/${ncid}`, function (data) {
+    decrypted = data;
+  });
 };
 
 $(document).ready(function () {
-  $("head").append(`
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"></link>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <script src="
-        https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
-        "></script>
-  `);
+  $(function () {
+    $("#newmessage").keyup(function (e) {
+      // element.style.height = "1px";
+      //figure out how many chars
+      var length = $(this).val().length;
 
-  var one = 1;
+      //if more than 10
+      if (length > 10) {
+        //if the modulus 10 of the length is zero, there are a multiple of 10 chars, so we need to extend by a row
+        //(NOTE the obvious problem - this will expand while deleting chars too!)
+        if (length % 10 == 0) {
+          //figure out the number of rows, increment by one, and reset rows attrib
+          var rows = $(this).attr("rows");
+          rows++;
+
+          $(this).attr("rows", rows);
+        }
+      }
+    });
+  });
   var body = `
   <div id="container">
     <!-- Main Menu -->
     <div id="main" class="chat-content position-relative" style="display:none">
       <div class="main-container col-md-12 pt-3 pl-3 pr-3 pb-3">
-        <div id="closeIcon" class="text-right close-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="26.671" height="26.671" viewBox="0 0 26.671 26.671">
-            <path id="create-account"
-              d="M17.737,8.085l-6.5-.122-.122-6.5A1.309,1.309,0,0,0,9.837.185L9,.169A1.2,1.2,0,0,0,7.777,1.4L7.9,7.9,1.4,7.779A1.2,1.2,0,0,0,.169,9.006l.016.833a1.309,1.309,0,0,0,1.275,1.275l6.5.122.122,6.5A1.309,1.309,0,0,0,9.36,19.012l.833.016A1.2,1.2,0,0,0,11.421,17.8L11.3,11.3l6.5.122a1.2,1.2,0,0,0,1.228-1.228l-.016-.832A1.31,1.31,0,0,0,17.737,8.085Z"
-              transform="translate(13.335 -0.239) rotate(45)" fill="#fff" />
-          </svg>
+        <div class="row justify-content-end">
+          <div id="minimize" class="text-right minimize-icon col-1">
+            <img src="https://chatbottesting.cts.ae/assets/minimize-icon.png" alt="minimize" />
+          </div>
+          <div id="closeIcon" class="text-right close-icon col-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26.671" height="26.671" viewBox="0 0 26.671 26.671">
+              <path id="create-account"
+                d="M17.737,8.085l-6.5-.122-.122-6.5A1.309,1.309,0,0,0,9.837.185L9,.169A1.2,1.2,0,0,0,7.777,1.4L7.9,7.9,1.4,7.779A1.2,1.2,0,0,0,.169,9.006l.016.833a1.309,1.309,0,0,0,1.275,1.275l6.5.122.122,6.5A1.309,1.309,0,0,0,9.36,19.012l.833.016A1.2,1.2,0,0,0,11.421,17.8L11.3,11.3l6.5.122a1.2,1.2,0,0,0,1.228-1.228l-.016-.832A1.31,1.31,0,0,0,17.737,8.085Z"
+                transform="translate(13.335 -0.239) rotate(45)" fill="#fff" />
+            </svg>
+          </div>
         </div>
         <div class="text-center main-help">
           <img src="https://chatbottesting.cts.ae/assets/robot-icon.png" class="robot-image" alt="robot" />
@@ -44,7 +81,7 @@ $(document).ready(function () {
       </div>
       <div id="newQuestion" class="main-new-chat row mx-4">
         <div class="col-10">
-          <p class="main-new-ask">Ask Us A New Question</p>
+          <p class="main-new-ask">Start a New Chat</p>
         </div>
         <div class="col-2 text-right">
           <!-- <img src="https://chatbottesting.cts.ae/send.png" class="send" alt="send" /> -->
@@ -61,7 +98,7 @@ $(document).ready(function () {
           <img src="https://chatbottesting.cts.ae/assets/arrow-small-yellow.png" class="arrow-small-yellow" />
         </div>
       </div>
-      <div class="main-terms row mx-4 position-absolute">
+      <div id="termsBtn" class="main-terms row mx-4 position-absolute">
         <div class="col-10">
           <p class="main-new-ask">Terms And Conditions</p>
         </div>
@@ -85,18 +122,23 @@ $(document).ready(function () {
         <div class="col-5 my-auto">
           <span class="mb-0 chatbox-title">YOUR PREVIOUS CHATS</span>
         </div>
-        <div id="closeIcon2" class="col-md-1 col-2 my-auto close-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="26.671" height="26.671" viewBox="0 0 26.671 26.671">
-            <path id="create-account"
-              d="M17.737,8.085l-6.5-.122-.122-6.5A1.309,1.309,0,0,0,9.837.185L9,.169A1.2,1.2,0,0,0,7.777,1.4L7.9,7.9,1.4,7.779A1.2,1.2,0,0,0,.169,9.006l.016.833a1.309,1.309,0,0,0,1.275,1.275l6.5.122.122,6.5A1.309,1.309,0,0,0,9.36,19.012l.833.016A1.2,1.2,0,0,0,11.421,17.8L11.3,11.3l6.5.122a1.2,1.2,0,0,0,1.228-1.228l-.016-.832A1.31,1.31,0,0,0,17.737,8.085Z"
-              transform="translate(13.335 -0.239) rotate(45)" fill="#fff" />
-          </svg>
+        <div class="row">
+          <div id="minimize2" class="text-right minimize-icon2 col-1">
+            <img src="https://chatbottesting.cts.ae/assets/minimize-icon.png" alt="minimize" />
+          </div>
+          <div id="closeIcon2" class="col-1 my-auto close-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26.671" height="26.671" viewBox="0 0 26.671 26.671">
+              <path id="create-account"
+                d="M17.737,8.085l-6.5-.122-.122-6.5A1.309,1.309,0,0,0,9.837.185L9,.169A1.2,1.2,0,0,0,7.777,1.4L7.9,7.9,1.4,7.779A1.2,1.2,0,0,0,.169,9.006l.016.833a1.309,1.309,0,0,0,1.275,1.275l6.5.122.122,6.5A1.309,1.309,0,0,0,9.36,19.012l.833.016A1.2,1.2,0,0,0,11.421,17.8L11.3,11.3l6.5.122a1.2,1.2,0,0,0,1.228-1.228l-.016-.832A1.31,1.31,0,0,0,17.737,8.085Z"
+                transform="translate(13.335 -0.239) rotate(45)" fill="#fff" />
+            </svg>
+          </div>
         </div>
       </div>
       <div id="prevChatsContainer" class="col-md-12 py-2 px-4">
         <div class="position-relative search-input-container">
-          <input onkeyup="searchRooms(this)" id="searchInput" class="search-input" type="text"
-            placeholder="| Search For Asked Questions" />
+          <input onkeyup="searchRooms(this)" id="searchInput2" class="search-input" type="text"
+            placeholder="Search For Asked Questions" />
           <img class="search-img search-blue" src="https://chatbottesting.cts.ae/assets/search-icon-blue.png" />
           <img class="search-img search-yellow" src="https://chatbottesting.cts.ae/assets/search-icon-yellow.png" />
         </div>
@@ -115,12 +157,17 @@ $(document).ready(function () {
             <span class="mb-0">Go Back</span>
           </div>
         </div>
-        <div id="closeIcon3" class="col-md-1 col-2 my-auto close-icon">
+        <div class="row">
+          <div id="minimize3" class="text-right minimize-icon2 col-1">
+            <img src="https://chatbottesting.cts.ae/assets/minimize-icon.png" alt="minimize" />
+          </div>
+        <div id="closeIcon3" class="col-1 my-auto close-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="26.671" height="26.671" viewBox="0 0 26.671 26.671">
             <path id="create-account"
               d="M17.737,8.085l-6.5-.122-.122-6.5A1.309,1.309,0,0,0,9.837.185L9,.169A1.2,1.2,0,0,0,7.777,1.4L7.9,7.9,1.4,7.779A1.2,1.2,0,0,0,.169,9.006l.016.833a1.309,1.309,0,0,0,1.275,1.275l6.5.122.122,6.5A1.309,1.309,0,0,0,9.36,19.012l.833.016A1.2,1.2,0,0,0,11.421,17.8L11.3,11.3l6.5.122a1.2,1.2,0,0,0,1.228-1.228l-.016-.832A1.31,1.31,0,0,0,17.737,8.085Z"
               transform="translate(13.335 -0.239) rotate(45)" fill="#fff" />
           </svg>
+        </div>
         </div>
         <div id="chatActions" class="w-100 d-none">
           <div class="row mx-0 my-2">
@@ -136,14 +183,17 @@ $(document).ready(function () {
         </div>
       </div>
       <div class="col-md-12 chats pt-3 pl-2 pr-3 pb-3">
+      <input type="hidden" id="pendingResponse" value="0">
         <div id="fullchat">
+       
         </div>
       </div>
       <div class="col-md-12 p-2 input-container">
         <div class="row">
           <div class="col-10 col-md-11 pl-3">
-            <input id="newmessage" class="message-input border-0 px-4" placeholder="Type your message!"
-              style="font-size:18px;" />
+            <textarea rows={1} type="text" id="newmessage" class="message-input border-0 px-4" placeholder="Type your message!"
+              style="font-size:18px;"></textarea>
+            <small class="disclaimer pl-4">Disclaimer: Please validate answers from ChatGPT independently and avoid sharing sensitive data.</small>
             <input id="PromptResponse" name="PromptResponse" type="hidden" value="0" />
           </div>
           <div class="col-2 col-md-1 pl-2">
@@ -154,10 +204,52 @@ $(document).ready(function () {
         </div>
       </div>
     </div>
+
+    <!-- Terms & Conditions -->
+    <div id="terms" class="chat-content position-relative" style="display:none">
+    <div class="row chat-header m-auto justify-content-between">
+        <div class="col-2 my-auto pl-1 back-container py-1">
+          <div id="goBack3" class="go-back">
+            <img src="https://chatbottesting.cts.ae/assets/arrow-left-white.png" class="arrow-left-white mr-1" />
+            <img src="https://chatbottesting.cts.ae/assets/arrow-left-yellow.png" class="arrow-left-yellow mr-1" />
+            <span class="mb-0">Go Back</span>
+          </div>
+        </div>
+        <div class="col-5 my-auto">
+          <span class="mb-0 chatbox-title">TERMS & CONDITIONS</span>
+        </div>
+        <div class="row">
+          <div id="minimize4" class="text-right minimize-icon2 col-1">
+            <img src="https://chatbottesting.cts.ae/assets/minimize-icon.png" alt="minimize" />
+          </div>
+          <div id="closeIcon4" class="col-1 my-auto close-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26.671" height="26.671" viewBox="0 0 26.671 26.671">
+              <path id="create-account"
+                d="M17.737,8.085l-6.5-.122-.122-6.5A1.309,1.309,0,0,0,9.837.185L9,.169A1.2,1.2,0,0,0,7.777,1.4L7.9,7.9,1.4,7.779A1.2,1.2,0,0,0,.169,9.006l.016.833a1.309,1.309,0,0,0,1.275,1.275l6.5.122.122,6.5A1.309,1.309,0,0,0,9.36,19.012l.833.016A1.2,1.2,0,0,0,11.421,17.8L11.3,11.3l6.5.122a1.2,1.2,0,0,0,1.228-1.228l-.016-.832A1.31,1.31,0,0,0,17.737,8.085Z"
+                transform="translate(13.335 -0.239) rotate(45)" fill="#fff" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="p-4">
+        <h5 class="terms-title">Terms and Conditions</h5>
+        <ul class="terms">
+          <li>Authorized Use: ChatGPT is for current HCT students' educational purposes only.</li>
+          <li>Responsible Use: Do not misuse ChatGPT for unlawful or unethical purposes.</li>
+          <li>Privacy: Your interactions may be collected and handled in accordance with data protection laws.</li>
+          <li>Academic Integrity: Maintain academic honesty and avoid plagiarism or cheating.</li>
+          <li>Limitations: ChatGPT is not a substitute for human expertise. Verify information independently.</li>
+          <li>Availability: Service may be temporarily unavailable due to technical issues or maintenance.</li>
+          <li>Modifications: HCT may update these terms, so review them periodically.</li>
+          <li>Intellectual Property: HCT retains all rights to ChatGPT; no reproduction or modification without permission.</li>
+          <li>Termination: HCT can terminate access to ChatGPT for violations of these terms.</li>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <div class="hide-chat-box bot-icon justify-cotent-center float-right">
-    <svg xmlns="http://www.w3.org/2000/svg" width="34.161" height="33.097" viewBox="0 0 34.161 33.097">
+    <svg id="botSvg" xmlns="http://www.w3.org/2000/svg" width="34.161" height="33.097" viewBox="0 0 34.161 33.097">
       <g id="bot" transform="translate(0 -7.973)">
         <g id="Page-1_9_" transform="translate(0 7.973)">
           <g id="_x30_10---Chat-Bot-Head">
@@ -179,45 +271,131 @@ $(document).ready(function () {
         </g>
       </g>
     </svg>
+    <img class="close-button" src="https://chatbottesting.cts.ae/assets/close-icon.png" alt="close" />
   </div>
 `;
 
   $(".chat-main").append(body);
   typeWriter();
   $("#sendmessage").disabled = true;
+  getCookie();
   fetchChats();
 
   $("#chatMain").on("click", ".hide-chat-box", function () {
-    if ($("#main").is(":visible")) {
-      $("#main").toggle();
-    } else if ($("#previousConversations").is(":visible")) {
-      $("#previousConversations").toggle();
-    } else if ($("#chatConversation").is(":visible")) {
-      $("#chatConversation").toggle();
+    if (
+      "previous" === state &&
+      $("#previousConversations").css("visibility") === "collapse"
+    ) {
+      $("#previousConversations").css("visibility", "visible");
+    } else if (
+      "previous" === state &&
+      $("#previousConversations").is(":visible")
+    ) {
+      $("#previousConversations").css("visibility", "collapse");
+    } else if (
+      "previous" === state &&
+      $("#chatConversation").css("visibility") === "collapse"
+    ) {
+      $("#chatConversation").css("visibility", "visible");
+    } else if ("previous" === state && $("#chatConversation").is(":visible")) {
+      $("#chatConversation").css("visibility", "collapse");
+    } else if (
+      "chatConversation" === state &&
+      $("#chatConversation").css("visibility") === "collapse"
+    ) {
+      $("#chatConversation").css("visibility", "visible");
+    } else if (
+      "chatConversation" === state &&
+      $("#chatConversation").is(":visible")
+    ) {
+      $("#chatConversation").css("visibility", "collapse");
+    } else if (
+      "terms" === state &&
+      $("#terms").css("visibility") === "collapse"
+    ) {
+      $("#terms").css("visibility", "visible");
+    } else if ("terms" === state && $("#terms").is(":visible")) {
+      $("#terms").css("visibility", "collapse");
     } else {
       $("#main").toggle();
     }
+
     $(this).toggleClass("bot-icon-light-blue");
+
+    $("#botSvg").toggle();
+    $(".close-button").toggle();
   });
 
   $("#chatMain").on("click", "#closeIcon", function () {
+    state = "";
     $("#main").toggle();
     $(".hide-chat-box").removeClass("bot-icon-light-blue");
+    $("#botSvg").toggle();
+    $(".close-button").toggle();
+  });
+
+  $("#chatMain").on("click", "#minimize", function () {
+    state = "";
+    $("#main").toggle();
+    $(".hide-chat-box").removeClass("bot-icon-light-blue");
+    $("#botSvg").toggle();
+    $(".close-button").toggle();
   });
 
   $("#chatMain").on("click", "#closeIcon2", function () {
+    state = "";
     $("#previousConversations").toggle();
     $(".hide-chat-box").removeClass("bot-icon-light-blue");
+    $("#botSvg").toggle();
+    $(".close-button").toggle();
+  });
+
+  $("#chatMain").on("click", "#minimize2", function () {
+    state = "previous";
+    $("#previousConversations").css("visibility", "collapse");
+    $(".hide-chat-box").removeClass("bot-icon-light-blue");
+    $("#botSvg").toggle();
+    $(".close-button").toggle();
   });
 
   $("#chatMain").on("click", "#closeIcon3", function () {
+    state = "";
     $("#chatConversation").toggle();
     $(".hide-chat-box").removeClass("bot-icon-light-blue");
+    $("#botSvg").toggle();
+    $(".close-button").toggle();
+  });
+
+  $("#chatMain").on("click", "#closeIcon4", function () {
+    state = "";
+    $("#terms").toggle();
+    $(".hide-chat-box").removeClass("bot-icon-light-blue");
+    $("#botSvg").toggle();
+    $(".close-button").toggle();
+  });
+
+  $("#chatMain").on("click", "#minimize3", function () {
+    state = "chatConversation";
+    $("#chatConversation").css("visibility", "collapse");
+    $(".hide-chat-box").removeClass("bot-icon-light-blue");
+    $("#botSvg").toggle();
+    $(".close-button").toggle();
+  });
+
+  $("#chatMain").on("click", "#minimize4", function () {
+    state = "terms";
+    $("#terms").css("visibility", "collapse");
+    $(".hide-chat-box").removeClass("bot-icon-light-blue");
+    $("#botSvg").toggle();
+    $(".close-button").toggle();
   });
 
   $("#chatMain").on("click", "#newQuestion", function () {
     id = "";
+    txt = "I am a GPT powered AI bot. How can i help you today?";
     prmptOld = "";
+    state = "chatConversation";
+    newChat = true;
     $("#fullchat").html("");
     typeWriter();
     $("#chatConversation").toggle();
@@ -225,12 +403,20 @@ $(document).ready(function () {
   });
 
   $("#chatMain").on("click", "#prevChats", function () {
+    state = "previous";
     $("#previousConversations").toggle();
+    $("#main").toggle();
+  });
+
+  $("#chatMain").on("click", "#termsBtn", function () {
+    state = "terms";
+    $("#terms").toggle();
     $("#main").toggle();
   });
 
   $("#chatMain").on("click", "#goBack", function () {
     $("#chatConversation").toggle();
+    $("#newmessage").val("");
     if (true === newChat) {
       $("#main").toggle();
     } else {
@@ -241,12 +427,23 @@ $(document).ready(function () {
 
   $("#chatMain").on("click", "#goBack2", function () {
     $("#previousConversations").toggle();
+    $("#newmessage").val("");
+    $("#main").toggle();
+  });
+
+  $("#chatMain").on("click", "#goBack3", function () {
+    $("#newmessage").val("");
+    $("#terms").toggle();
     $("#main").toggle();
   });
 
   $("#chatMain").on("click", "#deleteChat", function () {
     $.ajax({
-      url: `http://10.1.139.145:8989/api/Chatbot/DeleteChat/${id}`,
+      headers: {
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "script-src 'self'",
+      },
+      url: `https://ctsbe.hct.ac.ae/api/Chatbot/DeleteChat/${id}`,
       type: "DELETE",
       success: function (result) {
         if (true === result) {
@@ -262,7 +459,7 @@ $(document).ready(function () {
 
   $("#chatMain").on("click", "#downloadChat", function () {
     $.get(
-      `http://10.1.139.145:8989/api/Chatbot/GetChatFile/${id}`,
+      `https://ctsbe.hct.ac.ae/api/Chatbot/GetChatFile/${id}`,
       function (data) {
         var newTab = window.open(data, "_blank");
         newTab.location;
@@ -277,9 +474,14 @@ $(document).ready(function () {
 
     $("#chatActions").toggleClass("d-none", "d-block");
 
-    $.getJSON(
-      `http://10.1.139.145:8989/api/Chatbot/ChatListData/${this.id}`,
-      (data) => {
+    $.ajax({
+      headers: {
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "script-src 'self'",
+      },
+      url: `https://ctsbe.hct.ac.ae/api/Chatbot/ChatListData/${id}`,
+      type: "GET",
+      success: function (data) {
         data.reverse().map((message) => {
           var div = document.createElement("div");
           if ("Bot" === message?.prompter) {
@@ -301,7 +503,7 @@ $(document).ready(function () {
                 </g>
               </g>
             </svg>
-            <p class="sender mb-0">HCT AI</p>
+            <p class="sender mb-0">HCT GPT</p>
           </div>
           <div class="col-md-8 ml-2">
             <div id="message">
@@ -324,8 +526,8 @@ $(document).ready(function () {
           prmptOld = message?.chatprompt.toString();
           $("#fullchat").append(div);
         });
-      }
-    );
+      },
+    });
     $("#chatMain").scrollTop($(".chats")[0].scrollHeight);
     $("#chatConversation").toggle();
     $("#previousConversations").toggle();
@@ -333,6 +535,7 @@ $(document).ready(function () {
 
   $("#chatMain").on("click", ".send-icon", function () {
     var ip = $("#newmessage").val();
+    ip = ip.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     if (0 == ip.length) {
       return;
     }
@@ -340,22 +543,28 @@ $(document).ready(function () {
   });
 
   $("#newmessage").keypress(function (event) {
+    var keycode = event.keyCode ? event.keyCode : event.which;
     var ip = $("#newmessage").val();
+
+    if (keycode == 13 && ip.length == 0) {
+      event.preventDefault();
+      return false;
+    }
+    ip = ip.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     if (0 == ip.length) {
       return;
     }
-    var keycode = event.keyCode ? event.keyCode : event.which;
-    if (keycode == "13") {
-      WorkOutResponses(ip);
+    if (keycode == 13) {
+      $(".send-icon").click();
     }
   });
 });
 
-function typeWriter(type = "HCT AI") {
+function typeWriter(type = "HCT GPT") {
   var div = document.createElement("div");
   i = 0;
-
-  if ("HCT AI" == type) {
+  $("#pendingResponse").val(0);
+  if ("HCT GPT" == type) {
     div.innerHTML = `
     <div class="row message-container">
       <div class="col-md-2 text-center">
@@ -401,10 +610,13 @@ function typeWriter(type = "HCT AI") {
 
 function typeText() {
   if (i < txt.length) {
+    $(".chats").scrollTop($(".chats")[0].scrollHeight);
     var lastmessage = $(".message-container").find(".message-text").last();
     lastmessage.html(lastmessage.html() + txt.charAt(i));
     i++;
     setTimeout(typeText, speed);
+  } else {
+    $("#pendingResponse").val(1);
   }
 }
 
@@ -417,77 +629,131 @@ function uuidv4() {
   );
 }
 
-function WorkOutResponses(ip) {
-  StartWriter(ip, "You");
-  var prompt = encodeURIComponent(ip);
+async function WorkOutResponses(ip) {
+  if (/\S/.test(ip)) {
+    await StartWriter(ip, "You");
 
-  if (prmptOld.length > 0) {
-    // var oldprompt = encodeURIComponent($(prmptOld));
-    var oldprompt = encodeURIComponent(prmptOld);
-  } else {
-    var oldprompt = encodeURIComponent($("#PromptResponse").val());
-  }
-  if (id.length > 0) {
-    var chatId = id;
-  } else {
-    var chatId = studentId + uuidv4();
-  }
+    var prompt = ip;
 
-  $.getJSON(
-    `http://10.1.139.145:8989/api/Chatbot/Chat/${studentId}/${chatId}/${oldprompt.replace(
-      /\\\//g,
-      ""
-    )}/${prompt}`,
-    (data) => {
-      $("#PromptResponse").val(data); // this will set hidden field value
-      StartWriter(data, "HCT AI");
+    if (prmptOld.length > 0) {
+      var oldprompt = prmptOld;
+    } else {
+      var oldprompt = $("#PromptResponse").val();
     }
-  );
-  id = chatId;
+    if (id.length > 0) {
+      var chatId = id;
+    } else {
+      var chatId = decrypted + uuidv4();
+    }
+
+    $.ajax({
+      headers: {
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "script-src 'self'",
+      },
+      url: `https://ctsbe.hct.ac.ae/api/Chatbot/RateLimitChecker`,
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      error: (error) => {
+        alert(error?.statusText);
+        return;
+      },
+    });
+
+    $.ajax({
+      headers: {
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "script-src 'self'",
+      },
+      url: `https://ctsbe.hct.ac.ae/api/Chatbot/Chat`,
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify({
+        studentId: ncid,
+        chatId: chatId,
+        oldPrompt: oldprompt,
+        prompt: prompt,
+      }),
+      success: (data) => {
+        $("#PromptResponse").val(data); // this will set hidden field value
+        fetchChats();
+        awaitMessageDone(data);
+      },
+      error: (error) => {
+        alert(error?.statusText);
+      },
+    });
+    id = chatId;
+  }
 }
 
-function StartWriter(prompt, mperson) {
+function awaitMessageDone(data) {
+  if ($("#pendingResponse").val() == "0") {
+    setTimeout(() => {
+      awaitMessageDone();
+    }, 1000);
+  } else {
+    StartWriter(data, "HCT GPT");
+  }
+}
+
+async function StartWriter(prompt, mperson) {
   txt = prompt;
   typeWriter(mperson);
   $("#newmessage").val("");
 }
 
 function fetchChats() {
-  $.getJSON(
-    `http://10.1.139.145:8989/api/ChatBot/ChatList/${studentId}`,
-    (data) => {
+  $("#prevContainer").html("");
+  $.ajax({
+    headers: {
+      "X-Content-Type-Options": "nosniff",
+      "Content-Security-Policy": "script-src 'self'",
+    },
+    url: `https://ctsbe.hct.ac.ae/api/ChatBot/ChatList/${ncid}`,
+    type: "GET",
+    contentType: "application/json; charset=utf-8",
+    success: (data) => {
       data.map((chat) => {
         var div = document.createElement("div");
         div = `
-      <div class="row mx-0 mt-3 prev-chat-container" id='${chat?.chatid}'>
-        <div class="col-10 chat-list-item">
-          <p class="chat-title mb-0">${chat?.chattitle}</p>
-          <p class="chat-date mb-0">Created Date : ${moment(
-            chat?.dateadded
-          ).format("DD MMMM YYYY")}</p>
-          <p class="chat-date">Last Modified : ${moment(
-            chat?.lastModifiedDate
-          ).format("DD MMMM YYYY")}</p>
+        <div class="row mx-0 mt-3 prev-chat-container" id='${chat?.chatid}'>
+          <div class="col-10 chat-list-item">
+            <p class="chat-title mb-0">${chat?.chattitle}</p>
+            <p class="chat-date mb-0">Created Date : ${moment(
+              chat?.dateadded
+            ).format("DD MMMM YYYY")}</p>
+            <p class="chat-date">Last Modified : ${moment(
+              chat?.lastModifiedDate
+            ).format("DD MMMM YYYY")}</p>
+            </div>
+          <div class="col-2 text-right my-auto">
+            <img class="prev-chat-arrow-small" src="https://chatbottesting.cts.ae/assets/arrow-small.png" />
+            <img class="prev-chat-arrow-yellow" src="https://chatbottesting.cts.ae/assets/arrow-small-yellow.png" />
           </div>
-        <div class="col-2 text-right my-auto">
-          <img class="prev-chat-arrow-small" src="https://chatbottesting.cts.ae/assets/arrow-small.png" />
-          <img class="prev-chat-arrow-yellow" src="https://chatbottesting.cts.ae/assets/arrow-small-yellow.png" />
         </div>
-      </div>
-      `;
+        `;
         $("#prevContainer").append(div);
       });
-    }
-  );
+    },
+    error: function (error) {
+      alert(error?.statusText);
+    },
+  });
 }
 
 function searchRooms(e) {
   var SearchText = e.value;
   $("#prevContainer").html("");
   if (SearchText == "" || SearchText == " ") {
-    $.getJSON(
-      `http://10.1.139.145:8989/api/ChatBot/ChatList/${studentId}`,
-      (data) => {
+    $.ajax({
+      headers: {
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "script-src 'self'",
+      },
+      url: `https://ctsbe.hct.ac.ae/api/ChatBot/ChatList/${decrypted}`,
+      type: "GET",
+      success: function (data) {
         data.map((chat) => {
           var div = document.createElement("div");
           div = `
@@ -509,12 +775,17 @@ function searchRooms(e) {
         `;
           $("#prevContainer").append(div);
         });
-      }
-    );
+      },
+    });
   } else {
-    $.getJSON(
-      `http://10.1.139.145:8989/api/ChatBot/SearchChatList/${SearchText}/${studentId}`,
-      (data) => {
+    $.ajax({
+      headers: {
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "script-src 'self'",
+      },
+      url: `https://ctsbe.hct.ac.ae/api/ChatBot/SearchChatList/${SearchText}/${ncid}`,
+      type: "GET",
+      success: function (data) {
         data.map((chat) => {
           var div = document.createElement("div");
           div = `
@@ -536,7 +807,7 @@ function searchRooms(e) {
       `;
           $("#prevContainer").append(div);
         });
-      }
-    );
+      },
+    });
   }
 }
