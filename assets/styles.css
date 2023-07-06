@@ -115,6 +115,7 @@
   border-radius: 12px;
   border: 1px solid #020A5826;
   width: -webkit-fill-available;
+  width: -moz-available;
   bottom: 60px;
 }
 
@@ -129,6 +130,7 @@
   border-radius: 12px;
   border: 1px solid #020A5826;
   width: -webkit-fill-available;
+  width: -moz-available;
   bottom: 150px;
 }
 
@@ -179,7 +181,6 @@
   clear: both;
   font-size: 13px;
 }
-
 .btn-primary {
   background-color: #020a58 !important
 }
@@ -195,7 +196,7 @@
   position: fixed;
   bottom: 100px;
   right: 20px;
-  box-shadow: 0 0px 6px 5px rgba(0,0,0,0.35);
+  box-shadow: 0 0px 2.5px 1.5px rgba(0,0,0,0.35);
 }
 
 .bot-icon-light-blue {
@@ -225,12 +226,10 @@
 }
 
 .message-input {
-  padding-top: 16px;
-    padding-bottom: 0;
+  height: 30px;
   top: 897px;
   left: 1186px;
   width: 100%;
-  max-height: 70px;
   background: #e5e6ee;
   border-radius: 36px;
   color: #020A58 !important;
@@ -497,6 +496,10 @@
     height: 525px;
   }
 
+  .chats2 {
+    height: 525px;
+  }
+
   #prevChatsContainer {
     height: 600px;
   }
@@ -513,6 +516,10 @@
   }
 
   .chats {
+    height: 361px;
+  }
+
+  .chats2 {
     height: 361px;
   }
 
@@ -593,6 +600,10 @@
   }
 
   .chats {
-    height: 350px;
+    height: 390px;
+  }
+
+  .chats2 {
+    height: 330px !important;
   }
 }

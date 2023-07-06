@@ -6,6 +6,12 @@ var prmptOld = "";
 var newChat = true;
 var state = "";
 var ncid = getCookie("encid");
+var cookieCheckId = undefined;
+var height = "30px";
+var error = "";
+
+var handledCookie = false;
+
 var decrypted = "";
 // var ncid = "4hZ0qO1J11PRakfMTjw8lw2";
 
@@ -25,35 +31,60 @@ function getCookie(cname) {
   return "";
 }
 
-// $("#newmessage").on("input", function () {
-//   var scroll_height = $("newmessage").get(0).scrollHeight;
-//   $("#newmessage").css("height", scroll_height + "px");
-// });
-
-window.onload = (e) => {
-  $.get(`https://ctsbe.hct.ac.ae/api/Chatbot/DS/${ncid}`, function (data) {
-    decrypted = data;
+function decryptCookie(e) {
+  $.ajax({
+    headers: {
+      "X-Content-Type-Options": "nosniff",
+      "Content-Security-Policy": "script-src 'self'",
+    },
+    url: `https://ctsbe.hct.ac.ae/api/Chatbot/DS/${ncid}`,
+    type: "GET",
+    contentType: "application/json; charset=utf-8",
+    retries: 2,
+    success: (data) => {
+      decrypted = data;
+    },
+    error: () => {
+      $("#error").text("Error, please refresh the page.");
+    },
   });
-};
+}
 
 $(document).ready(function () {
+  var handleCookie = function () {
+    if (!getCookie("encid")) {
+    } else {
+      clearInterval(cookieCheckId); // Unset the check
+      handledCookie = true; // Set the cookie handled
+      ncid = getCookie("encid");
+    }
+  };
+
+  handleCookie();
+
+  if (handledCookie) {
+    decryptCookie();
+  }
+
+  if (!handledCookie) {
+    cookieCheckId = setInterval(handleCookie, 5000); // Handle the cookies
+  }
+
   $(function () {
     $("#newmessage").keyup(function (e) {
-      // element.style.height = "1px";
-      //figure out how many chars
       var length = $(this).val().length;
-
-      //if more than 10
-      if (length > 10) {
-        //if the modulus 10 of the length is zero, there are a multiple of 10 chars, so we need to extend by a row
-        //(NOTE the obvious problem - this will expand while deleting chars too!)
-        if (length % 10 == 0) {
-          //figure out the number of rows, increment by one, and reset rows attrib
-          var rows = $(this).attr("rows");
-          rows++;
-
-          $(this).attr("rows", rows);
-        }
+      var height = $(this).height();
+      if (length > 57 && height == 26) {
+        $("#newmessage").css("height", "50px");
+      }
+      if (length > 107 && height == 46) {
+        $("#newmessage").css("height", "70px");
+      }
+      if (length < 107 && height > 50) {
+        $("#newmessage").css("height", "50px");
+      }
+      if (length < 57 && height > 26) {
+        $("#newmessage").css("height", "30px");
       }
     });
   });
@@ -77,6 +108,7 @@ $(document).ready(function () {
         <div class="text-center main-help">
           <img src="https://chatbottesting.cts.ae/assets/robot-icon.png" class="robot-image" alt="robot" />
           <p class="main-title">how can I help you?</p>
+          <p id="error" class="disclaimer"></p>
         </div>
       </div>
       <div id="newQuestion" class="main-new-chat row mx-4">
@@ -182,7 +214,7 @@ $(document).ready(function () {
           </div>
         </div>
       </div>
-      <div class="col-md-12 chats pt-3 pl-2 pr-3 pb-3">
+      <div id="chats" class="col-md-12 chats pt-3 pl-2 pr-3 pb-3">
       <input type="hidden" id="pendingResponse" value="0">
         <div id="fullchat">
        
@@ -397,6 +429,7 @@ $(document).ready(function () {
     state = "chatConversation";
     newChat = true;
     $("#fullchat").html("");
+    $("#chats").removeClass("chats2");
     typeWriter();
     $("#chatConversation").toggle();
     $("#main").toggle();
@@ -419,8 +452,10 @@ $(document).ready(function () {
     $("#newmessage").val("");
     if (true === newChat) {
       $("#main").toggle();
+      $("#chats").removeClass("chats2");
     } else {
       $("#chatActions").toggleClass("d-none", "d-block");
+      $("#chats").addClass("chats2");
       $("#previousConversations").toggle();
     }
   });
@@ -451,6 +486,7 @@ $(document).ready(function () {
           fetchChats();
           $("#chatConversation").toggle();
           $("#chatActions").toggleClass("d-none", "d-block");
+          $("#chats").addClass("chats2");
           $("#previousConversations").toggle();
         }
       },
@@ -473,6 +509,7 @@ $(document).ready(function () {
     $("#fullchat").html("");
 
     $("#chatActions").toggleClass("d-none", "d-block");
+    $("#chats").addClass("chats2");
 
     $.ajax({
       headers: {
@@ -549,6 +586,9 @@ $(document).ready(function () {
     if (keycode == 13 && ip.length == 0) {
       event.preventDefault();
       return false;
+    }
+    if (event.which === 32 && this.selectionStart === 0) {
+      event.preventDefault();
     }
     ip = ip.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     if (0 == ip.length) {
@@ -655,7 +695,6 @@ async function WorkOutResponses(ip) {
       type: "POST",
       contentType: "application/json; charset=utf-8",
       error: (error) => {
-        alert(error?.statusText);
         return;
       },
     });
@@ -704,19 +743,21 @@ async function StartWriter(prompt, mperson) {
 }
 
 function fetchChats() {
-  $("#prevContainer").html("");
-  $.ajax({
-    headers: {
-      "X-Content-Type-Options": "nosniff",
-      "Content-Security-Policy": "script-src 'self'",
-    },
-    url: `https://ctsbe.hct.ac.ae/api/ChatBot/ChatList/${ncid}`,
-    type: "GET",
-    contentType: "application/json; charset=utf-8",
-    success: (data) => {
-      data.map((chat) => {
-        var div = document.createElement("div");
-        div = `
+  if (handledCookie) {
+    $("#prevContainer").html("");
+    $.ajax({
+      headers: {
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "script-src 'self'",
+      },
+      url: `https://ctsbe.hct.ac.ae/api/ChatBot/ChatList/${ncid}`,
+      type: "GET",
+      contentType: "application/json; charset=utf-8",
+      retries: 2,
+      success: (data) => {
+        data.map((chat) => {
+          var div = document.createElement("div");
+          div = `
         <div class="row mx-0 mt-3 prev-chat-container" id='${chat?.chatid}'>
           <div class="col-10 chat-list-item">
             <p class="chat-title mb-0">${chat?.chattitle}</p>
@@ -733,13 +774,14 @@ function fetchChats() {
           </div>
         </div>
         `;
-        $("#prevContainer").append(div);
-      });
-    },
-    error: function (error) {
-      alert(error?.statusText);
-    },
-  });
+          $("#prevContainer").append(div);
+        });
+      },
+      error: function () {
+        $("#error").text("Error, please refresh the page.");
+      },
+    });
+  }
 }
 
 function searchRooms(e) {
