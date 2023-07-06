@@ -51,6 +51,14 @@
   display: none;
 }
 
+#botSvg {
+  position: absolute;
+    height: 55px;
+    width: 55px;
+    top: -3px;
+    left: -2px;
+}
+
 .arrow-small-yellow {
   display: none;
   float: right;
@@ -121,6 +129,11 @@
 
 .robot-image {
   height: 123px;
+}
+
+.robot-image-sm {
+  height: 30px;
+  width: 30px;
 }
 
 .main-prev-chat {
@@ -196,7 +209,7 @@
   position: fixed;
   bottom: 100px;
   right: 20px;
-  box-shadow: 0 0px 2.5px 1.5px rgba(0,0,0,0.35);
+  box-shadow: 0 0px 2.5px 3.5px rgba(0,0,0,0.35);
 }
 
 .bot-icon-light-blue {

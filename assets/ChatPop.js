@@ -42,6 +42,7 @@ function decryptCookie(e) {
     contentType: "application/json; charset=utf-8",
     retries: 2,
     success: (data) => {
+      console.log("data: ", data);
       decrypted = data;
     },
     error: () => {
@@ -106,7 +107,7 @@ $(document).ready(function () {
           </div>
         </div>
         <div class="text-center main-help">
-          <img src="https://chatbottesting.cts.ae/assets/robot-icon.png" class="robot-image" alt="robot" />
+          <img src="https://chatbottesting.cts.ae/assets/HCTSage-sm.png" class="robot-image" alt="robot" />
           <p class="main-title">how can I help you?</p>
           <p id="error" class="disclaimer"></p>
         </div>
@@ -281,28 +282,7 @@ $(document).ready(function () {
   </div>
 
   <div class="hide-chat-box bot-icon justify-cotent-center float-right">
-    <svg id="botSvg" xmlns="http://www.w3.org/2000/svg" width="34.161" height="33.097" viewBox="0 0 34.161 33.097">
-      <g id="bot" transform="translate(0 -7.973)">
-        <g id="Page-1_9_" transform="translate(0 7.973)">
-          <g id="_x30_10---Chat-Bot-Head">
-            <path id="Shape_60_"
-              d="M0,248.607v3.416a1.708,1.708,0,0,0,1.708,1.708h.569V246.9H1.708A1.708,1.708,0,0,0,0,248.607Z"
-              transform="translate(0 -230.958)" fill="#fff" />
-            <path id="Shape_59_"
-              d="M478.436,246.9h-.569v6.832h.569a1.708,1.708,0,0,0,1.708-1.708v-3.416A1.708,1.708,0,0,0,478.436,246.9Z"
-              transform="translate(-445.984 -230.958)" fill="#fff" />
-            <path id="Shape_58_"
-              d="M219.023,10.819a2.856,2.856,0,0,1-2.277,2.79v2.9h-1.139v-2.9a2.847,2.847,0,1,1,3.416-2.79Z"
-              transform="translate(-199.096 -7.973)" fill="#fff" />
-            <circle id="Oval_17_" cx="1.708" cy="1.708" r="1.708" transform="translate(22.204 15.941)" fill="#fff" />
-            <circle id="Oval_16_" cx="1.708" cy="1.708" r="1.708" transform="translate(8.54 15.941)" fill="#fff" />
-            <path id="Shape_57_"
-              d="M75.112,153.033h-20.5a3.416,3.416,0,0,0-3.416,3.416v12.526a3.416,3.416,0,0,0,3.4,3.416.574.574,0,0,1,.581.569v2.921a.569.569,0,0,0,.885.474l5.662-3.774a1.139,1.139,0,0,1,.629-.191h12.75a3.416,3.416,0,0,0,3.416-3.416V156.449a3.416,3.416,0,0,0-3.416-3.416Zm-17.08,10.818A2.847,2.847,0,1,1,60.879,161,2.847,2.847,0,0,1,58.032,163.851Zm10.162,2.01a3.8,3.8,0,0,1-3.33,1.406,3.8,3.8,0,0,1-3.33-1.406.569.569,0,0,1,.961-.61,2.781,2.781,0,0,0,2.368.878,2.77,2.77,0,0,0,2.369-.879.574.574,0,0,1,.785-.163A.565.565,0,0,1,68.194,165.86Zm3.5-2.01A2.847,2.847,0,1,1,74.543,161,2.847,2.847,0,0,1,71.7,163.851Z"
-              transform="translate(-47.784 -143.355)" fill="#fff" />
-          </g>
-        </g>
-      </g>
-    </svg>
+    <img id="botSvg" src="https://chatbottesting.cts.ae/assets/HCTSage-sm.png" alt="bot" />
     <img class="close-button" src="https://chatbottesting.cts.ae/assets/close-icon.png" alt="close" />
   </div>
 `;
@@ -525,21 +505,7 @@ $(document).ready(function () {
             div = `
           <div class="row message-container">
           <div class="col-md-2 text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 31 31">
-              <g id="Group_19120" data-name="Group 19120" transform="translate(-1553.001 -517)">
-                <g id="up_button" data-name="up button" transform="translate(1553.033 517)">
-                  <rect id="Rectangle_5107" data-name="Rectangle 5107" width="31" height="31" rx="15.5" transform="translate(-0.032)" fill="rgba(255,255,255,0.1)"/>
-                  <g id="bot" transform="translate(0.806 0.412)">
-                    <path id="Path_10282" data-name="Path 10282" d="M2.168,45.44A3.673,3.673,0,0,0,1.435,46C.38,47.054.335,48.394.273,50.25s-.107,3.215.863,4.272a3.085,3.085,0,0,0,1.674,1,.345.345,0,0,0,.377-.5,10.365,10.365,0,0,1-1.371-5.106,10.138,10.138,0,0,1,.842-4.037.345.345,0,0,0-.488-.432Z" transform="translate(-0.245 -35.02)" fill="#020a58"/>
-                    <path id="Path_10283" data-name="Path 10283" d="M114.74,55.014a.345.345,0,0,0,.377.5,3.085,3.085,0,0,0,1.674-1c.971-1.057.925-2.405.863-4.272s-.108-3.2-1.163-4.247a3.673,3.673,0,0,0-.733-.563.345.345,0,0,0-.488.432,10.138,10.138,0,0,1,.841,4.036,10.365,10.365,0,0,1-1.371,5.106Z" transform="translate(-88.543 -35.019)" fill="#020a58"/>
-                    <path id="Path_10284" data-name="Path 10284" d="M18.011,24.907c5.971-.018,8.71.038,9.375,0s7.36-4.785,7.36-10.025c0-5.821-5.338-10.572-11.967-10.733V2.924a1.485,1.485,0,1,0-.686,0V4.149c-6.633.158-11.974,4.91-11.974,10.733,0,4.454,3.154,8.436,7.892,10.025Zm4.422-2.369a1.028,1.028,0,1,1,1.028-1.028A1.028,1.028,0,0,1,22.432,22.538Zm0-16.34a9.2,9.2,0,0,1,9.059,10.453,4.141,4.141,0,0,1-4.106,3.715c-2.477-.007-2.477-1.382-4.953-1.382s-2.477,1.376-4.953,1.382a4.141,4.141,0,0,1-4.106-3.715A9.2,9.2,0,0,1,22.432,6.2Z" transform="translate(-7.863 0.006)" fill="#020a58"/>
-                    <path id="Path_10285" data-name="Path 10285" d="M52.415,61.472a3.213,3.213,0,0,0,4.712,0,1.387,1.387,0,0,0-.011-1.933,1.409,1.409,0,0,0-1.942.009.568.568,0,0,1-.4.213.6.6,0,0,1-.4-.21,1.4,1.4,0,0,0-1.942-.014,1.387,1.387,0,0,0-.014,1.936Z" transform="translate(-40.195 -45.634)" fill="#020a58"/>
-                    <path id="Path_10286" data-name="Path 10286" d="M76.367,45.982a1.4,1.4,0,0,0,1.376-1.41c0-.382,0-1.14,0-1.52a1.4,1.4,0,0,0-1.373-1.412A1.382,1.382,0,0,0,75,43.011v1.6A1.379,1.379,0,0,0,76.367,45.982Z" transform="translate(-57.917 -32.123)" fill="#020a58"/>
-                    <path id="Path_10287" data-name="Path 10287" d="M42.373,45.982a1.382,1.382,0,0,0,1.369-1.371v-1.6a1.382,1.382,0,0,0-1.369-1.371A1.4,1.4,0,0,0,41,43.052c0,.379,0,1.138,0,1.52a1.4,1.4,0,0,0,1.373,1.41Z" transform="translate(-31.687 -32.123)" fill="#020a58"/>
-                  </g>
-                </g>
-              </g>
-            </svg>
+          <img src="https://chatbottesting.cts.ae/assets/HCTSage-sm.png" class="robot-image-sm" alt="robot" />
             <p class="sender mb-0">HCT GPT</p>
           </div>
           <div class="col-md-8 ml-2">
@@ -608,21 +574,8 @@ function typeWriter(type = "HCT GPT") {
     div.innerHTML = `
     <div class="row message-container">
       <div class="col-md-2 text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 31 31">
-          <g id="Group_19120" data-name="Group 19120" transform="translate(-1553.001 -517)">
-            <g id="up_button" data-name="up button" transform="translate(1553.033 517)">
-              <rect id="Rectangle_5107" data-name="Rectangle 5107" width="31" height="31" rx="15.5" transform="translate(-0.032)" fill="rgba(255,255,255,0.1)"/>
-              <g id="bot" transform="translate(0.806 0.412)">
-                <path id="Path_10282" data-name="Path 10282" d="M2.168,45.44A3.673,3.673,0,0,0,1.435,46C.38,47.054.335,48.394.273,50.25s-.107,3.215.863,4.272a3.085,3.085,0,0,0,1.674,1,.345.345,0,0,0,.377-.5,10.365,10.365,0,0,1-1.371-5.106,10.138,10.138,0,0,1,.842-4.037.345.345,0,0,0-.488-.432Z" transform="translate(-0.245 -35.02)" fill="#020a58"/>
-                <path id="Path_10283" data-name="Path 10283" d="M114.74,55.014a.345.345,0,0,0,.377.5,3.085,3.085,0,0,0,1.674-1c.971-1.057.925-2.405.863-4.272s-.108-3.2-1.163-4.247a3.673,3.673,0,0,0-.733-.563.345.345,0,0,0-.488.432,10.138,10.138,0,0,1,.841,4.036,10.365,10.365,0,0,1-1.371,5.106Z" transform="translate(-88.543 -35.019)" fill="#020a58"/>
-                <path id="Path_10284" data-name="Path 10284" d="M18.011,24.907c5.971-.018,8.71.038,9.375,0s7.36-4.785,7.36-10.025c0-5.821-5.338-10.572-11.967-10.733V2.924a1.485,1.485,0,1,0-.686,0V4.149c-6.633.158-11.974,4.91-11.974,10.733,0,4.454,3.154,8.436,7.892,10.025Zm4.422-2.369a1.028,1.028,0,1,1,1.028-1.028A1.028,1.028,0,0,1,22.432,22.538Zm0-16.34a9.2,9.2,0,0,1,9.059,10.453,4.141,4.141,0,0,1-4.106,3.715c-2.477-.007-2.477-1.382-4.953-1.382s-2.477,1.376-4.953,1.382a4.141,4.141,0,0,1-4.106-3.715A9.2,9.2,0,0,1,22.432,6.2Z" transform="translate(-7.863 0.006)" fill="#020a58"/>
-                <path id="Path_10285" data-name="Path 10285" d="M52.415,61.472a3.213,3.213,0,0,0,4.712,0,1.387,1.387,0,0,0-.011-1.933,1.409,1.409,0,0,0-1.942.009.568.568,0,0,1-.4.213.6.6,0,0,1-.4-.21,1.4,1.4,0,0,0-1.942-.014,1.387,1.387,0,0,0-.014,1.936Z" transform="translate(-40.195 -45.634)" fill="#020a58"/>
-                <path id="Path_10286" data-name="Path 10286" d="M76.367,45.982a1.4,1.4,0,0,0,1.376-1.41c0-.382,0-1.14,0-1.52a1.4,1.4,0,0,0-1.373-1.412A1.382,1.382,0,0,0,75,43.011v1.6A1.379,1.379,0,0,0,76.367,45.982Z" transform="translate(-57.917 -32.123)" fill="#020a58"/>
-                <path id="Path_10287" data-name="Path 10287" d="M42.373,45.982a1.382,1.382,0,0,0,1.369-1.371v-1.6a1.382,1.382,0,0,0-1.369-1.371A1.4,1.4,0,0,0,41,43.052c0,.379,0,1.138,0,1.52a1.4,1.4,0,0,0,1.373,1.41Z" transform="translate(-31.687 -32.123)" fill="#020a58"/>
-              </g>
-            </g>
-          </g>
-        </svg>
+      <img src="https://chatbottesting.cts.ae/assets/HCTSage-sm.png" class="robot-image-sm" alt="robot" />
+
         <p class="sender mb-0">${type}</p>
       </div>
       <div class="col-md-8 ml-2">
@@ -708,10 +661,10 @@ async function WorkOutResponses(ip) {
       type: "POST",
       contentType: "application/json; charset=utf-8",
       data: JSON.stringify({
-        studentId: ncid,
+        studentId: decrypted,
         chatId: chatId,
-        oldPrompt: oldprompt,
-        prompt: prompt,
+        oldPrompt: oldprompt.replace(/^\n/gm, ""),
+        prompt: prompt.replace(/^\n/gm, ""),
       }),
       success: (data) => {
         $("#PromptResponse").val(data); // this will set hidden field value
@@ -750,7 +703,7 @@ function fetchChats() {
         "X-Content-Type-Options": "nosniff",
         "Content-Security-Policy": "script-src 'self'",
       },
-      url: `https://ctsbe.hct.ac.ae/api/ChatBot/ChatList/${ncid}`,
+      url: `https://ctsbe.hct.ac.ae/api/ChatBot/ChatList/${decrypted}`,
       type: "GET",
       contentType: "application/json; charset=utf-8",
       retries: 2,
