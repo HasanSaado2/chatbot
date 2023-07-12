@@ -32,6 +32,7 @@ function getCookie(cname) {
 }
 
 function decryptCookie(e) {
+  var count = 0;
   $.ajax({
     headers: {
       "X-Content-Type-Options": "nosniff",
@@ -44,9 +45,16 @@ function decryptCookie(e) {
     success: (data) => {
       console.log("data: ", data);
       decrypted = data;
+      fetchChats();
+      $("#prevChats").show();
     },
     error: () => {
-      $("#error").text("Error, please refresh the page.");
+      count = count + 1;
+      console.log("Error", count);
+      if (count == 5) {
+        $("#prevChats").hide();
+      }
+      // $("#error").text("Error, please refresh the page.");
     },
   });
 }
@@ -79,13 +87,42 @@ $(document).ready(function () {
         $("#newmessage").css("height", "50px");
       }
       if (length > 107 && height == 46) {
-        $("#newmessage").css("height", "70px");
+        $("#newmessage").css("height", "orm70px");
       }
       if (length < 107 && height > 50) {
         $("#newmessage").css("height", "50px");
       }
       if (length < 57 && height > 26) {
         $("#newmessage").css("height", "30px");
+      }
+    });
+
+    $("#prevChatSearch").keydown(function (e) {
+      var keycode = e.keyCode ? e.keyCode : e.which;
+      var searchText = $("#prevChatSearch").val();
+      console.log(searchText);
+      console.log(searchText.length);
+      if (keycode == 13 && searchText.length == 0) {
+        e.preventDefault();
+        return false;
+      }
+      if (e.which === 32 && this.selectionStart === 0) {
+        e.preventDefault();
+      }
+      searchText = searchText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      if (0 == searchText.length) {
+        return;
+      }
+      // if (keycode == 13) {
+      //   $(".send-icon").click();
+      // }
+      console.log("oi");
+
+      searchRooms(searchText);
+
+      if (keycode == 13) {
+        e.preventDefault();
+        return false;
       }
     });
   });
@@ -170,8 +207,8 @@ $(document).ready(function () {
       </div>
       <div id="prevChatsContainer" class="col-md-12 py-2 px-4">
         <div class="position-relative search-input-container">
-          <input onkeyup="searchRooms(this)" id="searchInput2" class="search-input" type="text"
-            placeholder="Search For Asked Questions" />
+        <textarea  rows={1} id="prevChatSearch" class="search-input" 
+            placeholder="Search For Asked Questions" ></textarea>
           <img class="search-img search-blue" src="https://chatbottesting.cts.ae/assets/search-icon-blue.png" />
           <img class="search-img search-yellow" src="https://chatbottesting.cts.ae/assets/search-icon-yellow.png" />
         </div>
@@ -409,6 +446,7 @@ $(document).ready(function () {
     state = "chatConversation";
     newChat = true;
     $("#fullchat").html("");
+    $("#PromptResponse").val(0);
     $("#chats").removeClass("chats2");
     typeWriter();
     $("#chatConversation").toggle();
@@ -428,6 +466,11 @@ $(document).ready(function () {
   });
 
   $("#chatMain").on("click", "#goBack", function () {
+    console.log($("#pendingResponse").val());
+    if ($("#pendingResponse").val() == "0") {
+      return;
+    }
+
     $("#chatConversation").toggle();
     $("#newmessage").val("");
     if (true === newChat) {
@@ -441,12 +484,19 @@ $(document).ready(function () {
   });
 
   $("#chatMain").on("click", "#goBack2", function () {
+    if ($("#pendingResponse").val() == "0") {
+      return;
+    }
     $("#previousConversations").toggle();
+    $("#prevChatSearch").val("").trigger("keyup");
     $("#newmessage").val("");
     $("#main").toggle();
   });
 
   $("#chatMain").on("click", "#goBack3", function () {
+    if ($("#pendingResponse").val() == "0") {
+      return;
+    }
     $("#newmessage").val("");
     $("#terms").toggle();
     $("#main").toggle();
@@ -545,7 +595,7 @@ $(document).ready(function () {
     WorkOutResponses(ip);
   });
 
-  $("#newmessage").keypress(function (event) {
+  $("#newmessage").keydown(function (event) {
     var keycode = event.keyCode ? event.keyCode : event.which;
     var ip = $("#newmessage").val();
 
@@ -553,6 +603,7 @@ $(document).ready(function () {
       event.preventDefault();
       return false;
     }
+
     if (event.which === 32 && this.selectionStart === 0) {
       event.preventDefault();
     }
@@ -560,8 +611,12 @@ $(document).ready(function () {
     if (0 == ip.length) {
       return;
     }
-    if (keycode == 13) {
+    if (keycode == 13 && $("#pendingResponse").val() != "0") {
       $(".send-icon").click();
+    }
+    if (keycode == 13) {
+      event.preventDefault();
+      return false;
     }
   });
 });
@@ -628,6 +683,7 @@ async function WorkOutResponses(ip) {
 
     var prompt = ip;
 
+    console.log(prmptOld);
     if (prmptOld.length > 0) {
       var oldprompt = prmptOld;
     } else {
@@ -652,29 +708,32 @@ async function WorkOutResponses(ip) {
       },
     });
 
-    $.ajax({
-      headers: {
-        "X-Content-Type-Options": "nosniff",
-        "Content-Security-Policy": "script-src 'self'",
-      },
-      url: `https://ctsbe.hct.ac.ae/api/Chatbot/Chat`,
-      type: "POST",
-      contentType: "application/json; charset=utf-8",
-      data: JSON.stringify({
-        studentId: decrypted,
-        chatId: chatId,
-        oldPrompt: oldprompt.replace(/^\n/gm, ""),
-        prompt: prompt.replace(/^\n/gm, ""),
-      }),
-      success: (data) => {
-        $("#PromptResponse").val(data); // this will set hidden field value
-        fetchChats();
-        awaitMessageDone(data);
-      },
-      error: (error) => {
-        alert(error?.statusText);
-      },
-    });
+    if (decrypted != "") {
+      $.ajax({
+        headers: {
+          "X-Content-Type-Options": "nosniff",
+          "Content-Security-Policy": "script-src 'self'",
+        },
+        url: `https://ctsbe.hct.ac.ae/api/Chatbot/Chat`,
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({
+          studentId: decrypted,
+          chatId: chatId,
+          oldPrompt: oldprompt.replace(/^\\n/gm, ""),
+          prompt: prompt.replace(/^\n/gm, ""),
+        }),
+        success: (data) => {
+          $("#PromptResponse").val(data); // this will set hidden field value
+          fetchChats();
+          awaitMessageDone(data);
+        },
+        error: (error) => {
+          // alert(error?.statusText);
+          fetchChats();
+        },
+      });
+    }
     id = chatId;
   }
 }
@@ -683,7 +742,7 @@ function awaitMessageDone(data) {
   if ($("#pendingResponse").val() == "0") {
     setTimeout(() => {
       awaitMessageDone();
-    }, 1000);
+    }, 500);
   } else {
     StartWriter(data, "HCT GPT");
   }
@@ -731,16 +790,23 @@ function fetchChats() {
         });
       },
       error: function () {
-        $("#error").text("Error, please refresh the page.");
+        // $("#error").text("Error, please refresh the page.");
       },
     });
   }
 }
 
-function searchRooms(e) {
-  var SearchText = e.value;
-  $("#prevContainer").html("");
-  if (SearchText == "" || SearchText == " ") {
+function searchRooms(SearchText) {
+  // var SearchText = e.value;
+  // console.log(e.key);
+  // console.log(e.keyCode);
+  // if ((e.key === "Enter" || e.keyCode === 13) && SearchText.trim() == "") {
+  //   alert("dsf");
+  //   return;
+  // }
+
+  console.log("searching /...");
+  if (SearchText.trim() == "") {
     $.ajax({
       headers: {
         "X-Content-Type-Options": "nosniff",
@@ -749,6 +815,7 @@ function searchRooms(e) {
       url: `https://ctsbe.hct.ac.ae/api/ChatBot/ChatList/${decrypted}`,
       type: "GET",
       success: function (data) {
+        $("#prevContainer").html("");
         data.map((chat) => {
           var div = document.createElement("div");
           div = `
@@ -778,9 +845,10 @@ function searchRooms(e) {
         "X-Content-Type-Options": "nosniff",
         "Content-Security-Policy": "script-src 'self'",
       },
-      url: `https://ctsbe.hct.ac.ae/api/ChatBot/SearchChatList/${SearchText}/${ncid}`,
+      url: `https://ctsbe.hct.ac.ae/api/ChatBot/SearchChatList/${SearchText}/${decrypted}`,
       type: "GET",
       success: function (data) {
+        $("#prevContainer").html("");
         data.map((chat) => {
           var div = document.createElement("div");
           div = `

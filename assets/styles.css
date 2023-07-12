@@ -382,6 +382,7 @@
 }
 
 .search-input {
+  height: 81px;
   width: 100%;
   padding-top: 20px !important;
   padding-bottom: 20px !important;
@@ -593,12 +594,39 @@
 /* For Mobile Phones Portrait or Landscape View */
 @media screen and (max-device-width: 640px) {}
 
-@media (-webkit-max-device-pixel-ratio: 1.5) {
+@media (-webkit-min-device-pixel-ratio: 1.25) {
   .chat-content{
-    height: 560px !important;
+    max-height:585px !important;
     width: 670px !important;
   }
+  .chats{
+    height: 390px; 
+  }
 
+  .robot-image {
+    height: 100px;
+  }
+}
+@media (-webkit-min-device-pixel-ratio: 1.5) {
+  .chat-content{
+    max-height:417px !important;
+    width: 670px !important;
+  }
+  .main-terms {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    bottom: 10px;
+  }
+  .main-new-chat {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    bottom: 20px;
+  }
+  .main-prev-chat {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  bottom: 90px;
+  }
   .main-container {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
@@ -609,14 +637,28 @@
   }
 
   .robot-image {
-    height: 85px !important;
+    height: 70px !important;
   }
-
+  #prevChatsContainer{
+    height: 346px;
+  }
   .chats {
-    height: 390px;
+    height: 290px;
+  }
+  .terms {
+font-size: 12px !important;
   }
 
+  .message-container{
+    margin-bottom: 20px;
+  }
   .chats2 {
-    height: 330px !important;
+    height: 220px !important;
+  }
+  .chat-action-icon {
+    font: normal normal bold 15px/30px Montserrat;
+  }
+  .main-title{
+    font: normal normal bold 15px/20px Montserrat;
   }
 }
